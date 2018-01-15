@@ -7,10 +7,17 @@ from pdfminer.pdfinterp import PDFPageInterpreter
 from pdfminer.pdfdevice import PDFDevice
 from pdfminer.layout import LAParams
 from pdfminer.converter import PDFPageAggregator
+from pdfminer.converter import HTMLConverter
+from pdfminer.image import ImageWriter
+from io import StringIO
+import organizer
+import json
+
 import pdfminer
 
 # Open a PDF file.
-fp = open('cv.pdf', 'rb')
+# fp = open('cv.pdf', 'rb')
+fp = open('Chamod_Samarajeewa__CV.pdf', 'rb')
 
 # Create a PDF parser object associated with the file object.
 parser = PDFParser(fp)
@@ -36,6 +43,21 @@ laparams = LAParams()
 # Create a PDF page aggregator object.
 device = PDFPageAggregator(rsrcmgr, laparams=laparams)
 
+outfp = StringIO()
+codec = 'utf-8'
+scale = 1
+layoutmode = 'normal'
+imagewriter = ImageWriter('image.jpg')
+outfp = open('cv.html', 'wb')
+
+device = HTMLConverter(rsrcmgr,
+                       outfp,
+                       codec=codec,
+                       scale=scale,
+                       layoutmode=layoutmode,
+                       laparams=laparams,
+                       imagewriter=imagewriter)
+
 # Create a PDF interpreter object.
 interpreter = PDFPageInterpreter(rsrcmgr, device)
 
@@ -57,10 +79,15 @@ def parse_obj(lt_objs):
 
 # loop over all pages in the document
 for page in PDFPage.create_pages(document):
-    # read the page into a layout object
-    interpreter.process_page(page)
-    layout = device.get_result()
 
-    # extract text from this object
-    print(layout._objs)
-    parse_obj(layout._objs)
+    # convert the pdf pages into html format
+    interpreter.process_page(page)
+
+# outfp.getvalue()
+device.close()
+
+
+
+organizer.organize()
+
+
