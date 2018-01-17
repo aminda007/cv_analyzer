@@ -10,14 +10,16 @@ from pdfminer.converter import PDFPageAggregator
 from pdfminer.converter import HTMLConverter
 from pdfminer.image import ImageWriter
 from io import StringIO
+from bs4 import BeautifulSoup
+import json
 import organizer
 import json
 
 import pdfminer
 
 # Open a PDF file.
-# fp = open('cv.pdf', 'rb')
-fp = open('Chamod_Samarajeewa__CV.pdf', 'rb')
+fp = open('cv.pdf', 'rb')
+# fp = open('Chamod_Samarajeewa__CV.pdf', 'rb')
 
 # Create a PDF parser object associated with the file object.
 parser = PDFParser(fp)
@@ -83,7 +85,10 @@ for page in PDFPage.create_pages(document):
     # convert the pdf pages into html format
     interpreter.process_page(page)
 
+
 # outfp.getvalue()
+
+# print(outfp.read)
 device.close()
 
 
