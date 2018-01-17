@@ -4,7 +4,8 @@ from bs4 import BeautifulSoup
 import json
 
 def organize():
-    html = open('cv.txt', 'r', buffering=1).read(1000000)
+    html = open('cv.txt', 'rb', buffering=1).read(1000000)
+    print(html)
     soup = BeautifulSoup(html, 'html.parser')
     div = soup.find_all('span', style=True)
     font_array = []
@@ -12,15 +13,17 @@ def organize():
     for data in div:
         style_set = data["style"]
         if 'font' in style_set:
-            font_size = style_set.split(':')[-1].replace('px','').replace(';','')
-            line = {}
-            line['font'] = font_size
-            line['text'] = data.text.replace('\n',' ').strip()
-            # print(line['text'])
-            # print(line['font'])
+            font_size = style_set.split(':')[-1].replace('px', '').replace(';', '')
+
+
+            lines = data.text.split('\n')
+            for ln in lines:
+                if ln != '':
+                    line = {}
+                    line['font'] = font_size
+                    line['text'] = ln.strip()
+                    line_array.append(line)
             font_array.append(font_size)
-            line_array.append(line)
-    # print(line_array)
 
 
     # convert string array into int array
@@ -36,9 +39,7 @@ def organize():
     # find font size of name using sort and max
     max_array = sorted(font_array_int)
     font_name  = str(max_array[-1])
-    print(font_array)
-    print(max_array)
-    print(font_name)
+
     #
     # identify font size of headings
     font_heading = 0
@@ -67,51 +68,64 @@ def organize():
 
 
     heading_started = False
-    heading_ended = False
     sub_heading_started = False
-    sub_heading_ended = False
-    body_started = False
-    body_ended = False
     heading = {}
     subheading = {}
     body = {}
     heading_array = []
     sub_heading_array = []
     body_array = []
-    print('font heading')
-    print(font_heading)
+
     for line in line_array:
         font = int(line['font'])
         line = line['text']
 
-        # print('111111111111111111111111111111111111111111111111')
-        print('font is '+str(font))
+        print('init font is '+str(font))
+        print('init text is '+str(line))
+        print('init heading is '+str(heading_array))
+        print('init sub_heading is '+str(sub_heading_array))
+        print('init body is '+str(body_array))
+
         if (font == font_heading):
+
             if heading_started:
                 print('inside heading')
+                sub_heading["body"] = body_array
+                sub_heading_array.append(sub_heading)
                 heading["sub_heading"] = sub_heading_array
-                # print(heading)
+                print('final heading iiiisss'+str(heading))
                 heading_array.append(heading)
-                print(heading_array)
+
+
+                # print(heading_array)
+            sub_heading_array = []
+            sub_heading = {}
+            body = {}
+            body_array = []
             heading = {}
             heading["heading"] = line
             heading_started = True
-            # print(heading)
+            # print('heading iiiisss'+str(heading))
         if heading_started:
             if (font == font_subheading):
+                print('inside sub heading')
                 if sub_heading_started:
-                    subheading["body"] = body_array
-                    sub_heading_array.append(subheading)
+                    sub_heading["body"] = body_array
+                    sub_heading_array.append(sub_heading)
                 sub_heading = {}
-                subheading["subheading"] = line
+                sub_heading["subheading"] = line
                 body_array = []
                 sub_heading_started = True
             if (font == font_body):
+                print('inside body')
                 body = {}
                 body['line'] = line
                 body_array.append(body)
+                print('inside body')
 
     # print(sub_heading_array)
+    sub_heading["body"] = body_array
+    sub_heading_array.append(sub_heading)
     heading["sub_heading"] = sub_heading_array
     heading_array.append(heading)
 
@@ -119,6 +133,33 @@ def organize():
     json_data = json.dumps(cv)
     print(json_data)
 
+
+
+
+    def get_heading_data(type):
+        heading_data = []
+        for i in cv['data']:
+            if (type in i['heading']):
+                heading_data = i['sub_heading']
+        data_set = ''
+        for j in heading_data:
+            try:
+                data_set =  data_set + '\n' +'      --'+ j['subheading']
+            except KeyError:
+                print('')
+            for k in j['body']:
+                try:
+                    data_set =  data_set +'\n' + '              --' + k['line']
+                except KeyError:
+                    print('')
+
+        return data_set
+
+
     print('\nName:                  ' + cv['name'])
     print('Email:                 ' + cv['email'])
     print('LinkedIn Profile URL:  '+cv['linkedin'])
+    print('Education:             '+get_heading_data('ducation'))
+    print('Experience:            '+get_heading_data('xperience'))
+    print('Skills:                '+get_heading_data('kills'))
+    print('Achievement:           '+get_heading_data('chievement'))

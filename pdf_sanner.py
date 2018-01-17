@@ -10,23 +10,18 @@ from pdfminer.converter import PDFPageAggregator
 from pdfminer.converter import HTMLConverter
 from pdfminer.image import ImageWriter
 from io import StringIO
-from bs4 import BeautifulSoup
-import json
 import organizer
-import json
-
-import pdfminer
 
 # Open a PDF file.
 # fp = open('cv.pdf', 'rb')
+fp = open('cvc.pdf', 'rb')
 # fp = open('CV Chanuka Lihini.pdf', 'rb')
-fp = open('Chamod_Samarajeewa__CV.pdf', 'rb')
+# fp = open('Chamod_Samarajeewa__CV.pdf', 'rb')
 
 # Create a PDF parser object associated with the file object.
 parser = PDFParser(fp)
 
 # Create a PDF document object that stores the document structure.
-# Password for initialization as 2nd parameter
 document = PDFDocument(parser)
 
 # Check if the document allows text extraction. If not, abort.
@@ -65,34 +60,13 @@ device = HTMLConverter(rsrcmgr,
 interpreter = PDFPageInterpreter(rsrcmgr, device)
 
 
-def parse_obj(lt_objs):
-    # loop over the object list
-    for obj in lt_objs:
-
-        # if it's a textbox, print text and location
-        if isinstance(obj, pdfminer.layout.LTTextBoxHorizontal):
-            # print(obj)
-            "%6d, %6d, %s" % (obj.bbox[0], obj.bbox[1], obj.get_text().replace('\n', '_'))
-            # print(obj)
-
-        # if it's a container, recurse
-        elif isinstance(obj, pdfminer.layout.LTFigure):
-            parse_obj(obj._objs)
-
-
 # loop over all pages in the document
 for page in PDFPage.create_pages(document):
 
     # convert the pdf pages into html format
     interpreter.process_page(page)
 
-
-# outfp.getvalue()
-
-# print(outfp.read)
 device.close()
-
-
 
 organizer.organize()
 
