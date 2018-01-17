@@ -4,14 +4,7 @@ from bs4 import BeautifulSoup
 import json
 
 def organize():
-    html = open('cv.html', 'r', buffering=1).read()
-    print(html)
-    # import codecs
-    # f = codecs.open("cv.html", 'rb', 'utf-8')
-    soup1 = BeautifulSoup(f.read()).get_text()
-    print(soup1)
-    # page = urllib.request.urlopen("./cv.html").read()
-    # print(page)
+    html = open('cv.txt', 'r', buffering=1).read(1000000)
     soup = BeautifulSoup(html, 'html.parser')
     div = soup.find_all('span', style=True)
     font_array = []
@@ -22,7 +15,7 @@ def organize():
             font_size = style_set.split(':')[-1].replace('px','').replace(';','')
             line = {}
             line['font'] = font_size
-            line['text'] = data.text.replace('\n',' ').rstrip()
+            line['text'] = data.text.replace('\n',' ').strip()
             # print(line['text'])
             # print(line['font'])
             font_array.append(font_size)
@@ -64,8 +57,6 @@ def organize():
             cv['email'] = line
         if ('linkedin' in line):
             cv['linkedin'] = line
-        else:
-            cv['linkedin'] = "Not available"
 
 
     font_subheading = 0
@@ -120,13 +111,13 @@ def organize():
                 body['line'] = line
                 body_array.append(body)
 
-    print(sub_heading_array)
+    # print(sub_heading_array)
     heading["sub_heading"] = sub_heading_array
     heading_array.append(heading)
 
     cv['data']= heading_array
     json_data = json.dumps(cv)
-    # print(json_data)
+    print(json_data)
 
     print('\nName:                  ' + cv['name'])
     print('Email:                 ' + cv['email'])

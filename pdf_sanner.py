@@ -18,8 +18,9 @@ import json
 import pdfminer
 
 # Open a PDF file.
-fp = open('cv.pdf', 'rb')
-# fp = open('Chamod_Samarajeewa__CV.pdf', 'rb')
+# fp = open('cv.pdf', 'rb')
+# fp = open('CV Chanuka Lihini.pdf', 'rb')
+fp = open('Chamod_Samarajeewa__CV.pdf', 'rb')
 
 # Create a PDF parser object associated with the file object.
 parser = PDFParser(fp)
@@ -50,7 +51,7 @@ codec = 'utf-8'
 scale = 1
 layoutmode = 'normal'
 imagewriter = ImageWriter('image.jpg')
-outfp = open('cv.html', 'wb')
+outfp = open('cv.txt', 'wb')
 
 device = HTMLConverter(rsrcmgr,
                        outfp,
