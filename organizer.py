@@ -5,16 +5,16 @@ import json
 
 def organize():
     html = open('cv.txt', 'rb', buffering=1).read(1000000)
-    print(html)
+    # print(html)
     soup = BeautifulSoup(html, 'html.parser')
     div = soup.find_all('span', style=True)
     font_array = []
     line_array = []
     for data in div:
+        # print('data is' + str(data))
         style_set = data["style"]
         if 'font' in style_set:
-            font_size = style_set.split(':')[-1].replace('px', '').replace(';', '')
-
+            font_size = style_set.split(':')[-1].replace('px', '')
 
             lines = data.text.split('\n')
             for ln in lines:
@@ -23,18 +23,21 @@ def organize():
                     line['font'] = font_size
                     line['text'] = ln.strip()
                     line_array.append(line)
+                    # print(line)
             font_array.append(font_size)
 
-
+    # print(font_array)
     # convert string array into int array
     font_array_int = []
     for i in font_array:
         i = int(i)
         font_array_int.append(i)
+    # print(font_array_int)
 
     # find font size of body using sort
     sorted_font_array = sorted(font_array_int, key = font_array_int.count)
     font_body = sorted_font_array[-1]
+    # print(sorted_font_array)
 
     # find font size of name using sort and max
     max_array = sorted(font_array_int)
@@ -79,7 +82,7 @@ def organize():
     for line in line_array:
         font = int(line['font'])
         line = line['text']
-
+        print('***********************************************************************')
         print('init font is '+str(font))
         print('init text is '+str(line))
         print('init heading is '+str(heading_array))
@@ -106,22 +109,22 @@ def organize():
             heading["heading"] = line
             heading_started = True
             # print('heading iiiisss'+str(heading))
-        if heading_started:
-            if (font == font_subheading):
-                print('inside sub heading')
-                if sub_heading_started:
-                    sub_heading["body"] = body_array
-                    sub_heading_array.append(sub_heading)
-                sub_heading = {}
-                sub_heading["subheading"] = line
-                body_array = []
-                sub_heading_started = True
-            if (font == font_body):
-                print('inside body')
-                body = {}
-                body['line'] = line
-                body_array.append(body)
-                print('inside body')
+
+        elif (font == font_subheading):
+            print('inside sub heading')
+            if sub_heading_started:
+                sub_heading["body"] = body_array
+                sub_heading_array.append(sub_heading)
+            sub_heading = {}
+            sub_heading["subheading"] = line
+            body_array = []
+            sub_heading_started = True
+        elif (font == font_body):
+            print('inside body')
+            body = {}
+            body['line'] = line
+            body_array.append(body)
+            print('inside body')
 
     # print(sub_heading_array)
     sub_heading["body"] = body_array
