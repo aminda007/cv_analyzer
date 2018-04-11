@@ -1,13 +1,31 @@
 from bs4 import BeautifulSoup
 # import json.simple.JSONObject;
 # import  urllib
+from pathlib import Path
 import json
 
 def organize():
+    # html = open('cv.txt', 'rb', buffering=1).read(1000000)
+    # with open('cv.txt','r') as content:
+    #     html = content.read()
+    # html = open('cv.txt', 'rt', encoding='utf-8')
+    # html = open('cv.txt', 'rb')
+    # html = open('cv.txt','r').readlines()
+    # for line in html:
+    #     print (line)
+    # html.close()
+    # html = Path('cv.txt').read_text()
+
+    file = open('cv.txt', 'at')
+    file.write('afdsghjgfdsafghjkhgfdsfghj')
+    file.close()
+
     html = open('cv.txt', 'rb', buffering=1).read(1000000)
     # print(html)
     soup = BeautifulSoup(html, 'html.parser')
+    print("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS\n"+str(soup))
     div = soup.find_all('span', style=True)
+    print("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD\n"+str(div))
     font_array = []
     line_array = []
     for data in div:
@@ -119,6 +137,7 @@ def organize():
             sub_heading["subheading"] = line
             body_array = []
             sub_heading_started = True
+
         elif (font == font_body):
             print('inside body')
             body = {}
@@ -135,9 +154,6 @@ def organize():
     cv['data']= heading_array
     json_data = json.dumps(cv)
     print(json_data)
-
-
-
 
     def get_heading_data(type):
         heading_data = []

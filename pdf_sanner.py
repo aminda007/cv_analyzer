@@ -8,6 +8,8 @@ from pdfminer.pdfdevice import PDFDevice
 from pdfminer.layout import LAParams
 from pdfminer.converter import PDFPageAggregator
 from pdfminer.converter import HTMLConverter
+from pdfminer.converter import TextConverter
+from pdfminer.converter import XMLConverter
 from pdfminer.image import ImageWriter
 from io import StringIO
 import organizer
@@ -48,12 +50,16 @@ layoutmode = 'normal'
 imagewriter = ImageWriter('image.jpg')
 outfp = open('cv.txt', 'wb')
 
+# device = XMLConverter(rsrcmgr, outfp)
 device = HTMLConverter(rsrcmgr,
                        outfp,
                        codec=codec,
                        scale=scale,
                        layoutmode=layoutmode,
                        laparams=laparams,
+                       pagemargin=0,
+                       fontscale=1.0,
+                       debug=0,
                        imagewriter=imagewriter)
 
 # Create a PDF interpreter object.
@@ -67,7 +73,10 @@ for page in PDFPage.create_pages(document):
     interpreter.process_page(page)
 
 device.close()
-
+outfp.close()
+file = open('cv.txt', 'a')
+file.write('End of PDF **************************************')
+file.close()
 organizer.organize()
 
 
