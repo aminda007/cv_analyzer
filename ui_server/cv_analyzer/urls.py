@@ -19,8 +19,11 @@ from . import views
 from django.urls import path
 # from django.conf.urls import url
 
+
+
 urlpatterns = [
     # url(r'^$', views.HomePageView.as_view()),
     path(r'', views.LoginPageView.as_view()),
-    path(r'dashboard', views.HomePageView.as_view()),
+    path(r'dashboard', views.dashboard),
+    # path(r'dashboard', views.HomePageView.as_view()),
 ]
