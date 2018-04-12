@@ -21,5 +21,6 @@ from django.urls import path
 
 urlpatterns = [
     # url(r'^$', views.HomePageView.as_view()),
-    path(r'', views.HomePageView.as_view()),
+    path(r'', views.LoginPageView.as_view()),
+    path(r'dashboard', views.HomePageView.as_view()),
 ]
