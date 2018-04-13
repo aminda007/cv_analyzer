@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 # import  urllib
 from pathlib import Path
 import json
+from .export_data import *
 
 def organize():
     # html = open('cv.txt', 'rb', buffering=1).read(1000000)
@@ -16,11 +17,11 @@ def organize():
     # html.close()
     # html = Path('cv.txt').read_text()
 
-    file = open('cv.txt', 'at')
+    file = open('cv_analyzer/cv.txt', 'at')
     file.write('afdsghjgfdsafghjkhgfdsfghj')
     file.close()
 
-    html = open('cv.txt', 'rb', buffering=1).read(1000000)
+    html = open('cv_analyzer/cv.txt', 'rb', buffering=1).read(1000000)
     # print(html)
     soup = BeautifulSoup(html, 'html.parser')
     print("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS\n"+str(soup))
@@ -163,7 +164,7 @@ def organize():
         data_set = ''
         for j in heading_data:
             try:
-                data_set =  data_set + '\n' +'      --'+ j['subheading']
+                data_set =  data_set + '\n' +'      @#---'+ j['subheading']
             except KeyError:
                 print('')
             for k in j['body']:
@@ -174,11 +175,33 @@ def organize():
 
         return data_set
 
+    def getSkillWords(data):
+        lines = data.split('\n')
+        for line in lines:
+            if'anguages' in line:
+                writeLanguages(line)
+            elif 'ibraries' in line:
+                writeLibraries(line)
+            elif 'ramework' in line:
+                writeFrameworks(line)
+            elif 'atabase' in line:
+                writeDatabase(line)
+            elif 'obile' in line:
+                writeMobile(line)
+            elif 'IDE' in line:
+                writeIDE(line)
+            elif 'ersion' in line:
+                writeVersion(line)
+            elif 'perating' in line:
+                writeOS(line)
 
-    print('\nName:                  ' + cv['name'])
-    print('Email:                 ' + cv['email'])
-    print('LinkedIn Profile URL:  '+cv['linkedin'])
+    # print('\nName:                  ' + cv['name'])
+    # print('Email:                 ' + cv['email'])
+    # print('LinkedIn Profile URL:  '+cv['linkedin'])
+    writePersonalInfo( cv['name'], cv['email'], cv['linkedin'])
     print('Education:             '+get_heading_data('ducation'))
     print('Experience:            '+get_heading_data('xperience'))
-    print('Skills:                '+get_heading_data('kills'))
+    writeProjects(get_heading_data('xperience'))
+    # print('Skills:                '+get_heading_data('kills'))
+    getSkillWords(get_heading_data('kills'))
     print('Achievement:           '+get_heading_data('chievement'))

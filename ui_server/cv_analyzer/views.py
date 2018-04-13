@@ -4,13 +4,29 @@ from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.db import models
 from django.template.response import TemplateResponse
+from .import_data import *
+from .pdf_sanner import scanPdf
 
 # Create your views here.
 # class HomePageView(TemplateView):
     # template_name = 'Dashboard.html'
 def dashboard(request):
     myString = "hello"
-    return TemplateResponse(request, 'Dashboard.html', {'myString': myString})
+    scanPdf()
+    # name = importPersonalData()[0]
+    return TemplateResponse(request, 'Dashboard.html', {'name': importPersonalData()[0],
+                                                        'email': importPersonalData()[1],
+                                                        'linkedin': importPersonalData()[2],
+                                                        'languages': importLanguageData(),
+                                                        'libraries': importLibrariesData(),
+                                                        'frameworks': importFrameworksData(),
+                                                        'database': importDatabaseData(),
+                                                        'mobile': importMobile(),
+                                                        'ides': importIDE(),
+                                                        'version_control': importVersionData(),
+                                                        'os': importOSData(),
+                                                        'projects': importProjectData(),
+                                                        })
 
 
     # def get_context_data(self, **kwargs):
