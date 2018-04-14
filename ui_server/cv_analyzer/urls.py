@@ -24,6 +24,8 @@ from django.urls import path
 urlpatterns = [
     # url(r'^$', views.HomePageView.as_view()),
     path(r'', views.LoginPageView.as_view()),
-    path(r'dashboard', views.dashboard),
+    path(r'dashboard', views.DashboardView.as_view()),
+    path(r'cv-template', views.cvTemplate),
+    path(r'cv-linkedin', views.cvLinkedIn),
     # path(r'dashboard', views.HomePageView.as_view()),
 ]
