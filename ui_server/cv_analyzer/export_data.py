@@ -37,8 +37,8 @@ def writeProjects(data):
         projects = data.split('@#')
 
         for project in projects:
-            print('111111111111111111111111111111111111111111111111111111111111111\n')
-            print(project)
+            # print('111111111111111111111111111111111111111111111111111111111111111\n')
+            # print(project)
             lines = project.split('\n')
             pname = ''
             lineSet = ''
@@ -60,7 +60,7 @@ def writeProjects(data):
                 if len(newLineSet) != 0:
                     # csv_writer.writerow(["svgf", ['xas', 'xsa', 'xsasa']])
                     csv_writer.writerow([pname[3:], newLineSet])
-                    print('pname is--------------------------------'+pname)
+                    # print('pname is--------------------------------'+pname)
 
 
 def writeProjectsLinkedIn(data):
@@ -70,8 +70,8 @@ def writeProjectsLinkedIn(data):
         projects = data.split('@#')
 
         for project in projects:
-            print('111111111111111111111111111111111111111111111111111111111111111\n')
-            print(project)
+            # print('111111111111111111111111111111111111111111111111111111111111111\n')
+            # print(project)
             lines = project.split('\n')
             pname = ''
             lineSet = ''
@@ -97,7 +97,7 @@ def writeProjectsLinkedIn(data):
                 if len(newLineSet) != 0:
                     # csv_writer.writerow(["svgf", ['xas', 'xsa', 'xsasa']])
                     csv_writer.writerow([pname[3:], newLineSet])
-                    print('pname is--------------------------------'+pname)
+                    # print('pname is--------------------------------'+pname)
 
 
 def write_skills(data):
@@ -136,8 +136,8 @@ def writeSkillsLinkedIn(data):
         for lines in data:
             skill = lines.split('$')
             csv_writer.writerow(skill)
-            print('111111111111111111111111111111111111111111111111111111111111111\n')
-            print(skill)
+            # print('111111111111111111111111111111111111111111111111111111111111111\n')
+            # print(skill)
 
 
 def write_all_data(data):
