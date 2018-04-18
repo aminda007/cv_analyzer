@@ -1,5 +1,5 @@
 import colorama
-
+from .export_data import *
 
 class Extractor:
 
@@ -81,7 +81,7 @@ class Extractor:
 
         projectList = '\n'
         for i in range(len(project_name)):
-            projectList += '   ' +colorama.Fore.LIGHTGREEN_EX+ (project_name[i] + ' :- \n' + '        ' +colorama.Fore.WHITE+ project_discription[i] + '\n'+ project_url[i] + '\n'+'\n');
+            projectList += '@#---' +(project_name[i] + '\n' + '--' + project_discription[i] + '\n--'+ project_url[i] +'\n');
 
         print('\n' + 'Name:       ' + firstName + ' ' + lastName + '\n---------------------------------------------------------------------------\n'
                 'Occupation: ' + occupation + '\n---------------------------------------------------------------------------\n'
@@ -93,3 +93,6 @@ class Extractor:
                 'Projects: ' + projectList
               )
 
+        writePersonalInfoLinkedIn(firstName + ' ' + lastName, occupation, summary, skillsList[:-2], experienceList[:-2], courseList[:-2], organizationList)
+        writeProjectsLinkedIn(projectList)
+        write_all_data(firstName+lastName+occupation+summary+skillsList[:-2]+experienceList[:-2]+courseList[:-2]+organizationList+projectList)

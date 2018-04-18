@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 from pathlib import Path
 import json
 from .export_data import *
+from .scoring_template import write_total_score
 
 def organize():
     # html = open('cv.txt', 'rb', buffering=1).read(1000000)
@@ -19,6 +20,11 @@ def organize():
 
     file = open('cv_analyzer/cv.txt', 'at')
     file.write('afdsghjgfdsafghjkhgfdsfghj')
+    file.close()
+
+    file = open('cv_analyzer/cv.txt', 'r')
+    text_input  = file.read()
+    write_total_score(text_input.split(),'score')
     file.close()
 
     html = open('cv_analyzer/cv.txt', 'rb', buffering=1).read(1000000)
@@ -175,26 +181,6 @@ def organize():
 
         return data_set
 
-    def getSkillWords(data):
-        lines = data.split('\n')
-        for line in lines:
-            if'anguages' in line:
-                writeLanguages(line)
-            elif 'ibraries' in line:
-                writeLibraries(line)
-            elif 'ramework' in line:
-                writeFrameworks(line)
-            elif 'atabase' in line:
-                writeDatabase(line)
-            elif 'obile' in line:
-                writeMobile(line)
-            elif 'IDE' in line:
-                writeIDE(line)
-            elif 'ersion' in line:
-                writeVersion(line)
-            elif 'perating' in line:
-                writeOS(line)
-
     # print('\nName:                  ' + cv['name'])
     # print('Email:                 ' + cv['email'])
     # print('LinkedIn Profile URL:  '+cv['linkedin'])
@@ -203,5 +189,5 @@ def organize():
     print('Experience:            '+get_heading_data('xperience'))
     writeProjects(get_heading_data('xperience'))
     # print('Skills:                '+get_heading_data('kills'))
-    getSkillWords(get_heading_data('kills'))
+    write_skills(get_heading_data('kills'))
     print('Achievement:           '+get_heading_data('chievement'))

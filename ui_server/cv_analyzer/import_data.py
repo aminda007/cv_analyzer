@@ -8,29 +8,8 @@ def importPersonalData():
             return line
 
 
-def importLanguageData():
-    with open('cv_analyzer/static/csv_data/programming_languages.csv', 'r') as csv_file:
-        csv_reader = csv.reader(csv_file)
-        for line in csv_reader:
-            return line
-
-
-def importLibrariesData():
-    with open('cv_analyzer/static/csv_data/libraries.csv', 'r') as csv_file:
-        csv_reader = csv.reader(csv_file)
-        for line in csv_reader:
-            return line
-
-
-def importFrameworksData():
-    with open('cv_analyzer/static/csv_data/frameworks.csv', 'r') as csv_file:
-        csv_reader = csv.reader(csv_file)
-        for line in csv_reader:
-            return line
-
-
-def importDatabaseData():
-    with open('cv_analyzer/static/csv_data/database.csv', 'r') as csv_file:
+def importPersonalDataLinkedIn():
+    with open('cv_analyzer/static/csv_data/link_personal_info.csv', 'r') as csv_file:
         csv_reader = csv.reader(csv_file)
         for line in csv_reader:
             return line
@@ -42,57 +21,84 @@ def importPersonalData():
         for line in csv_reader:
             return line
 
-def importMobile():
-    with open('cv_analyzer/static/csv_data/mobile.csv', 'r') as csv_file:
-        csv_reader = csv.reader(csv_file)
-        for line in csv_reader:
-            return line
-
-
-def importIDE():
-    with open('cv_analyzer/static/csv_data/ides.csv', 'r') as csv_file:
-        csv_reader = csv.reader(csv_file)
-        for line in csv_reader:
-            return line
-
-
-def importVersionData():
-    with open('cv_analyzer/static/csv_data/version.csv', 'r') as csv_file:
-        csv_reader = csv.reader(csv_file)
-        for line in csv_reader:
-            return line
-
-
-def importOSData():
-    with open('cv_analyzer/static/csv_data/os.csv', 'r') as csv_file:
-        csv_reader = csv.reader(csv_file)
-        for line in csv_reader:
-            return line
-
 
 def importProjectData():
     with open('cv_analyzer/static/csv_data/projects.csv', 'r') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter='<')
         print('666666666666666666666666666666666666666666666666666666666')
         print (csv_reader)
-        projects = []
+        return getProjects(csv_reader)
 
+
+def getProjects(csv_reader):
+    projects = []
+
+    for line in csv_reader:
+        project = []
+        project.append(line[0])
+        lines = line[1]
+        lines = lines[1:]
+        lines = lines.split('^')
+        newLines = []
+        for line in lines:
+            line = line.lstrip()
+            newLines.append(line)
+
+        project.append(newLines)
+        projects.append(project)
+    for project in projects:
+        for line in project[1]:
+            print(line)
+    return [projects]
+
+
+def importProjectDataLinkedIn():
+    with open('cv_analyzer/static/csv_data/link_projects.csv', 'r') as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter='<')
+        print('666666666666666666666666666666666666666666666666666666666')
+        print (csv_reader)
+        return getProjects(csv_reader)
+
+
+def importSkillsLinkedIn():
+    with open('cv_analyzer/static/csv_data/link_skills.csv', 'r') as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter=',')
+        print('666666666666666666666666666666666666666666666666666666666')
+        print (csv_reader)
+        skills = []
         for line in csv_reader:
-            project = []
-            project.append(line[0])
-            lines= line[1]
-            lines= lines[1:]
-            lines = lines.split('^')
-            newLines = []
-            for line in lines:
-                line = line.lstrip()
-                newLines.append(line)
+            skills.append(line)
+            print(line)
+        return [skills]
+
+def importSkillsData():
+    with open('cv_analyzer/static/csv_data/skills.csv', 'r') as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter=',')
+        print('666666666666666666666666666666666666666666666666666666666')
+        print (csv_reader)
+        return getProjects(csv_reader)
+
+def importScoreData():
+    with open('cv_analyzer/static/csv_data/score.csv', 'r') as csv_file:
+        csv_reader = csv.reader(csv_file)
+        for line in csv_reader:
+            return line
 
 
-            project.append(newLines)
-            projects.append(project)
-        for project in projects:
-            for line in project[1]:
-                print(line)
-        return [projects]
-# importPersonalData()
+def importScoreDataLinkedIn():
+    with open('cv_analyzer/static/csv_data/link_score.csv', 'r') as csv_file:
+        csv_reader = csv.reader(csv_file)
+        for line in csv_reader:
+            return line
+
+
+def import_all_data():
+    file = open('cv_analyzer/all.txt', 'r')
+    text_input = file.read()
+    return text_input
+
+def import_endoresed_data():
+    with open('cv_analyzer/static/csv_data/endoresed_data.csv', 'r') as csv_file:
+        csv_reader = csv.reader(csv_file)
+        for line in csv_reader:
+            return line

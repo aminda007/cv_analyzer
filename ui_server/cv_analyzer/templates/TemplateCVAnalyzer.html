@@ -3,9 +3,11 @@
 {% block title %}Template CV Analyzer{% endblock %}
 
 {% block body %}
-    <!-- Personal Info-->
+
+                    <!-- Personal Info-->
                     <div class="masonry-item col-md-12" style="position: absolute; left: 0%; top: 1032px;">
-                        <div class="bd bgc-white layer w-95 p-10" style="margin-left:10px;"></div>
+                        <div class="bd bgc-white layer w-95 p-10" style="margin-left:10px;">
+                        </div>
                         <div class="bgc-light-blue-300 c-white p-20">
                             <div class="peers ai-c jc-sb gap-40">
                                 <div class="peer peer-greed"><h5>Summary</h5></div>
@@ -14,7 +16,15 @@
                         <div class="bd bgc-white" style="margin-left:10px;">
                             <div class="layers">
                                 <div class="layer w-100">
-                                    <div class="table-responsive p-20" style="margin:10px;">
+                                    <div class="" style='transform:translate(50%,-60%); margin-right:100px'>
+                                        <div class="bgc-white bdrs-50p pos-r" style="width:170px;height:170px">
+                                            <img class="pos-a centerXY w-6r bdrs-50p" style="width:150px;height:150px"
+                                             src="static/images/pro-pic.jpg"
+                                             alt="">
+                                        </div>
+                                    </div>
+
+                                    <div class="table-responsive p-20" style="margin:10px; transform:translate(0%,-30%)">
                                         <table class="table">
                                             <!--<thead>-->
                                             <!--<tr>-->
@@ -54,67 +64,76 @@
                     </div>
                     <!-- End of Personal Info-->
 
-                    <!-- Section Score view pane-->
-                    <div class="masonry-item col-12" style="position: absolute; left: 0%; top: 124px;">
-                        <div class="bd bgc-white layer w-950 p-10" style="margin-left:10px;"></div>
+                    <!-- Overall Score view pane-->
+                    <div class="masonry-item col-md-12" style="position: absolute; left: 50%; top: 734px;">
+                        <div class="bd bgc-white layer w-95 p-10" style="margin-left:10px;"></div>
                         <div class="bgc-light-blue-300 c-white p-20">
                             <div class="peers ai-c jc-sb gap-40">
-                                <div class="peer peer-greed"><h5>Section Score</h5></div>
+                                <div class="peer peer-greed"><h5>Scoring</h5></div>
                             </div>
                         </div>
                         <div class="bd bgc-white p-20 bd" style="margin-left:10px;">
                             <div class="peers fxw-nw@lg+ ai-s">
                                 <div class="peer bdL p-20 w-30p@lg+ w-100p@lg-" style="width: 100%">
                                     <div class="layers">
-                                        <div class="layer w-100">
+                                        <div class="layer w-75">
                                             <div class="layers">
-                                                <div class="layer w-100">
+                                                <h3>Overall Score</h3>
+                                                <br>
+                                                <div class="easy-pie-chart" data-size="150" data-percent="{{score_total}}"
+                                                    data-bar-color="#f44336" style="margin-right:120px;">
+                                                    <span class="fsz-lg"></span>
+                                                    <canvas height="120" width="120"></canvas>
+                                                </div>
+                                                <br>
+                                                <span class="fsz-md">Section Scores</span>
+                                                <div class="layer w-100 mT-15">
                                                     <medium class="fw-600 c-grey-700">Software </medium>
-                                                    <span class="pull-right c-grey-600 fsz-sm">50%</span>
+                                                    <span class="pull-right c-grey-600 fsz-sm">{{score_software}}%</span>
                                                     <div class="progress mT-10">
-                                                        <div class="progress-bar bgc-deep-purple-500" role="progressbar"
+                                                        <div class="progress-bar bgc-orange-300" role="progressbar"
                                                              aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
-                                                             style="width:50%"><span class="sr-only">10/10 complete</span>
+                                                             style="width:{{score_software}}%"><span class="sr-only">10/10 complete</span>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="layer w-100 mT-15">
                                                     <medium class="fw-600 c-grey-700">Engineering</medium>
-                                                    <span class="pull-right c-grey-600 fsz-sm">80%</span>
+                                                    <span class="pull-right c-grey-600 fsz-sm">{{score_engineering}}%</span>
                                                     <div class="progress mT-10">
                                                         <div class="progress-bar bgc-green-500" role="progressbar"
-                                                             aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
-                                                             style="width:80%"><span class="sr-only">80% Complete</span>
+                                                             aria-valuenow="" aria-valuemin="0" aria-valuemax="100"
+                                                             style="width:{{score_engineering}}%"><span class="sr-only">80% Complete</span>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="layer w-100 mT-15">
                                                     <medium class="fw-600 c-grey-700">Finance</medium>
-                                                    <span class="pull-right c-grey-600 fsz-sm">40%</span>
+                                                    <span class="pull-right c-grey-600 fsz-sm">{{score_finance}}%</span>
                                                     <div class="progress mT-10">
                                                         <div class="progress-bar bgc-light-blue-500" role="progressbar"
                                                              aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
-                                                             style="width:40%"><span class="sr-only">40% Complete</span>
+                                                             style="width:{{score_finance}}%"><span class="sr-only">40% Complete</span>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="layer w-100 mT-15">
                                                     <medium class="fw-600 c-grey-700">Management</medium>
-                                                    <span class="pull-right c-grey-600 fsz-sm">90%</span>
+                                                    <span class="pull-right c-grey-600 fsz-sm">{{score_management}}%</span>
                                                     <div class="progress mT-10">
                                                         <div class="progress-bar bgc-blue-grey-500" role="progressbar"
                                                              aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
-                                                             style="width:90%"><span class="sr-only">90% Complete</span>
+                                                             style="width:{{score_management}}%"><span class="sr-only">90% Complete</span>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="layer w-100 mT-15">
                                                     <medium class="fw-600 c-grey-700">Art</medium>
-                                                    <span class="pull-right c-grey-600 fsz-sm">60%</span>
+                                                    <span class="pull-right c-grey-600 fsz-sm">{{score_art}}%</span>
                                                     <div class="progress mT-10">
                                                         <div class="progress-bar bgc-red-300" role="progressbar"
                                                              aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
-                                                             style="width:60%"><span class="sr-only">90% Complete</span>
+                                                             style="width:{{score_art}}%"><span class="sr-only">90% Complete</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -125,37 +144,14 @@
                             </div>
                         </div>
                     </div>
-                    <!-- End of Section Score view pane-->
-
-                    <!-- Overall Score view pane-->
-                    <div class="masonry-item col-md-12" style="position: absolute; left: 50%; top: 734px;">
-                        <div class="bd bgc-white layer w-95 p-10" style="margin-left:10px;"></div>
-                        <div class="bgc-light-blue-300 c-white p-20">
-                            <div class="peers ai-c jc-sb gap-40">
-                                <div class="peer peer-greed"><h5>Overall Score</h5></div>
-                            </div>
-                        </div>
-                        <div class="bgc-white p-20 bd" style="margin-left:10px;">
-                            <div class="mT-30">
-                                <div class="peers mT-40 fxw-nw@lg+ jc-sb ta-c gap-10">
-                                    <div class="peer">
-                                        <div class="easy-pie-chart" data-size="120" data-percent="75"
-                                             data-bar-color="#f44336"><span>75%</span>
-                                            <canvas height="120" width="120"></canvas>
-                                        </div>
-                                        <h6 class="fsz-sm">{{myString}}</h6></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <!-- End of Overall Score view pane-->
 
-                    <!-- Technology Stack-->
+                    <!-- Skills Info-->
                     <div class="masonry-item col-md-12" style="position: absolute; left: 0%; top: 1032px;">
                         <div class="bd bgc-white layer w-95 p-10" style="margin-left:10px;"></div>
                         <div class="bgc-light-blue-300 c-white p-20">
                             <div class="peers ai-c jc-sb gap-40">
-                                <div class="peer peer-greed"><h5>Technology Stack</h5></div>
+                                <div class="peer peer-greed"><h5>Skills</h5></div>
                             </div>
                         </div>
                         <div class="bd bgc-white" style="margin-left:10px;">
@@ -165,84 +161,23 @@
                                         <table class="table">
                                             <thead>
                                             <tr>
-                                                <!--<th class="bdwT-0">Catogary</th>-->
-                                                <!--<th class="bdwT-0">Items</th>-->
-                                                <!--<th class="bdwT-0">Status</th>-->
+                                                <th class="bdwT-0">Project</th>
+                                                <th class="bdwT-0">Description</th>
                                             </tr>
                                             </thead>
                                             <tbody>
+                                            {% for project in skills %}
+                                                {% for p_name,p_lines in  project %}
                                             <tr>
-                                                <td class="fw-600">Languages</td>
+                                                <td class="fw-600">{{ p_name }}</td>
                                                 <td>
-                                                    {% for lan in languages %}
-                                                        <span class="badge bgc-red-50 c-red-700 p-10 lh-0 tt-c badge-pill">{{ lan }}</span>
+                                                    {% for lines in  p_lines %}
+                                                        <span class="badge bgc-blue-50 c-blue-700 p-10 lh-0 tt-c badge-pill">{{lines}}</span>
                                                     {% endfor %}
                                                 </td>
-                                                <!--<td><span class="text-success">12</span></td>-->
                                             </tr>
-                                            <tr>
-                                                <td class="fw-600">Fluent libraries</td>
-                                                <td>
-                                                    {% for lan in libraries %}
-                                                        <span class="badge bgc-deep-purple-50 c-deep-purple-700 p-10 lh-0 tt-c badge-pill">{{ lan }}</span>
-                                                    {% endfor %}
-                                                </td>
-                                                <!--<td><span class="text-info">34</span></td>-->
-                                            </tr>
-                                            <tr>
-                                                <td class="fw-600">Frameworks</td>
-                                                <td>
-                                                    {% for lan in frameworks %}
-                                                        <span class="badge bgc-pink-50 c-pink-700 p-10 lh-0 tt-c badge-pill">{{ lan }}</span>
-                                                    {% endfor %}
-                                                </td>
-                                                <!--<td><span class="text-danger">-45</span></td>-->
-                                            </tr>
-                                            <tr>
-                                                <td class="fw-600">Database</td>
-                                                <td>
-                                                    {% for lan in database %}
-                                                        <span class="badge bgc-green-50 c-green-700 p-10 lh-0 tt-c badge-pill">{{ lan }}</span>
-                                                    {% endfor %}
-                                                </td>
-                                                <!--<td><span class="text-success">65</span></td>-->
-                                            </tr>
-                                            <tr>
-                                                <td class="fw-600">Mobile technologies</td>
-                                                <td>
-                                                    {% for lan in mobile %}
-                                                        <span class="badge bgc-red-50 c-red-700 p-10 lh-0 tt-c badge-pill">{{ lan }}</span>
-                                                    {% endfor %}
-                                                </td>
-                                                <!--<td><span class="text-success">78</span></td>-->
-                                            </tr>
-                                            <tr>
-                                                <td class="fw-600">IDEs</td>
-                                                <td>
-                                                    {% for lan in ides %}
-                                                        <span class="badge bgc-orange-50 c-orange-700 p-10 lh-0 tt-c badge-pill">{{ lan }}</span>
-                                                    {% endfor %}
-                                                </td>
-                                                <!--<td><span class="text-danger">-88</span></td>-->
-                                            </tr>
-                                            <tr>
-                                                <td class="fw-600">Version controlling</td>
-                                                <td>
-                                                    {% for lan in version_control %}
-                                                        <span class="badge bgc-deep-purple-50 c-deep-purple-700 p-10 lh-0 tt-c badge-pill">{{ lan }}</span>
-                                                    {% endfor %}
-                                                </td>
-                                                <!--<td><span class="text-success">56</span></td>-->
-                                            </tr>
-                                            <tr>
-                                                <td class="fw-600">Operating systems</td>
-                                                <td>
-                                                    {% for lan in os %}
-                                                        <span class="badge bgc-green-50 c-green-700 p-10 lh-0 tt-c badge-pill">{{ lan }}</span>
-                                                    {% endfor %}
-                                                </td>
-                                                <!--<td><span class="text-success">56</span></td>-->
-                                            </tr>
+                                                {% endfor %}
+                                            {% endfor %}
                                             </tbody>
                                         </table>
                                     </div>
@@ -253,7 +188,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- End of Technology Stack-->
+                    <!-- End of Skills Info-->
 
                     <!-- Project Info-->
                     <div class="masonry-item col-md-12" style="position: absolute; left: 0%; top: 1032px;">

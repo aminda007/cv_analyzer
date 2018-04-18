@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 import requests
 import json
-from extractor import Extractor
+from .extractor import Extractor
 
 
 class Linked_in_scraper:
