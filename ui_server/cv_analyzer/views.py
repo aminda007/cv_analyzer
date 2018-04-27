@@ -8,6 +8,9 @@ from .import_data import *
 from .pdf_sanner import scanPdf
 from .init import get_linkedin_profile
 from .selenium_scrapper import scrape_linkedin
+from django.http import HttpResponseRedirect
+from .models import UploadForm, Upload
+from django.urls import reverse
 
 # Create your views here.
 
@@ -32,11 +35,11 @@ def cvTemplate(request):
 
 def cvLinkedIn(request):
     # pro_url= 'https://www.linkedin.com/in/manura-jithmal-de-silva-988b385b/'
-    pro_url= 'https://www.linkedin.com/in/aminda-abeywardana-6aa8b845/'
+    # pro_url= 'https://www.linkedin.com/in/aminda-abeywardana-6aa8b845/'
     # pro_url= 'https://www.linkedin.com/in/chamodsamarajeewa/'
     # pro_url= 'https://www.linkedin.com/in/shatheesh-sohan-b9a0b4b8/'
     # pro_url= 'https://www.linkedin.com/in/mihiran-rajapaksha/'
-    # pro_url= 'https://www.linkedin.com/in/ksuthagar/'
+    pro_url= 'https://www.linkedin.com/in/ksuthagar/'
     # pro_url= 'https://www.linkedin.com/in/anuradha-sithuruwan-a971b7126/'
 
 
@@ -72,3 +75,16 @@ class LoginPageView(TemplateView):
 class DashboardView(TemplateView):
     def get(self, request, **kwargs):
         return render(request, 'Dashboard.html', context=None)
+
+
+def upload_file(request):
+    if request.method == "POST":
+        img = UploadForm(request.POST, request.FILES)
+        if img.is_valid():
+            img.save()
+            return HttpResponseRedirect(reverse('imageupload'))
+    else:
+        img = UploadForm()
+    images = Upload.objects.all()
+    # return render(request, 'Upload.html', {'form': img, 'images': images})
+    return TemplateResponse(request, 'Upload.html', {'form': img, 'images': images})

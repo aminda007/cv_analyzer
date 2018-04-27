@@ -7,7 +7,7 @@ class Extractor:
 
     def extract_info(self, data):
 
-        intro = data['included'][-1]
+        # intro = data['included'][-1]
         included = data['included']
         # print(intro)
         # print(data)

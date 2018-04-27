@@ -1,0 +1,34 @@
+{% extends 'Dashboard.html' %}
+
+{% block title %}File Upload{% endblock %}
+
+{% block body %}
+    <!-- Personal Info-->
+        <div class="masonry-item col-md-12" style="position: absolute; left: 0%; top: 1032px;">
+                        <div class="bd bgc-white layer w-95 p-10" style="margin-left:10px;">
+                        </div>
+                        <div class="bgc-light-blue-300 c-white p-20">
+                            <div class="peers ai-c jc-sb gap-40">
+                                <div class="peer peer-greed"><h5>Upload Resume</h5></div>
+                            </div>
+                        </div>
+                        <div class="bd bgc-white" style="margin-left:10px;">
+                            <div style="padding:40px;margin:40px;border:1px solid #ccc">
+                                <form action="#" method="post" enctype="multipart/form-data">
+                                    {% csrf_token %} {{form}}
+                                    <input type="submit" value="Upload" class="btn cur-p btn-outline-primary"/>
+                                </form>
+                                <br>
+                                <h1>Upload History</h1>
+                                {% for img in images %}
+                                    {{forloop.counter}}.<a href="{{ img.pic.url }}">{{ img.pic.name }}</a>
+                                    ({{img.upload_date}})<hr />
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                    </div>
+    <!-- End of Personal Info-->
+
+
+{% endblock %}
