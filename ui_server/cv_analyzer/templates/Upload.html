@@ -21,7 +21,7 @@
                                 <br>
                                 <h1>Upload History</h1>
                                 {% for img in images %}
-                                    {{forloop.counter}}.<a href="{{ img.pic.url }}">{{ img.pic.name }}</a>
+                                    {{forloop.counter}}.<a href="{{ img.resume.url }}">{{ img.resume.name }}</a>
                                     ({{img.upload_date}})<hr />
                                 {% endfor %}
                             </div>
