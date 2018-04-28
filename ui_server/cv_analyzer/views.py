@@ -2,15 +2,16 @@
 
 from django.shortcuts import render
 from django.views.generic import TemplateView
-from django.db import models
 from django.template.response import TemplateResponse
 from .import_data import *
 from .pdf_sanner import scanPdf
 from .init import get_linkedin_profile
 from .selenium_scrapper import scrape_linkedin
 from django.http import HttpResponseRedirect
-from .models import UploadForm, Upload
+from .models import UploadForm, Upload, Words
 from django.urls import reverse
+from django.shortcuts import get_object_or_404
+from .model_creater import update_model
 
 # Create your views here.
 
@@ -79,12 +80,65 @@ class DashboardView(TemplateView):
 
 def upload_file(request):
     if request.method == "POST":
-        img = UploadForm(request.POST, request.FILES)
-        if img.is_valid():
-            img.save()
-            return HttpResponseRedirect(reverse('imageupload'))
+        resume = UploadForm(request.POST, request.FILES)
+        if resume.is_valid():
+            resume.save()
+            file = resume.cleaned_data.get('resume')
+            # docToDel = get_object_or_404(Upload, pk=len(Upload.objects.all()))
+            # print("deleted_id " + docToDel.resume.url)
+            # print(file.name)
+            # print(file.file)
+            update_model(file.file)
+            # print(file.url)
+            return HttpResponseRedirect(reverse('resume_upload'))
     else:
-        img = UploadForm()
-    images = Upload.objects.all()
+        resume = UploadForm()
+    resumes = Upload.objects.all()
+    # print(len(Upload.objects.all()))
     # return render(request, 'Upload.html', {'form': img, 'images': images})
-    return TemplateResponse(request, 'Upload.html', {'form': img, 'images': images})
+    return TemplateResponse(request, 'Upload.html', {'form': resume, 'resumes': resumes})
+
+
+def delete_file(request):
+    # if request.method != 'POST':
+    #     raise HTTP404
+    if request.method == "POST":
+        docId = request.POST.get('docfile', None)
+        print("docid "+docId)
+        docToDel = get_object_or_404(Upload, pk=docId)
+        print("deleted_id "+docToDel.resume.url)
+        docToDel.resume.delete()
+        print()
+        docToDel.delete()
+        return HttpResponseRedirect(reverse('resume_upload'))
+    else:
+        resume = UploadForm()
+    resumes = Upload.objects.all()
+    # print()
+    # return render(request, 'Upload.html', {'form': img, 'images': images})
+    return TemplateResponse(request, 'Upload.html', {'form': resume, 'resumes': resumes})
+
+
+def delete_all(request):
+    # if request.method == "GET":
+    #     for docToDel in Upload.objects.all():
+    #         docToDel.resume.delete()
+    #         docToDel.delete()
+    #     Upload.objects.all().delete()
+    #     return HttpResponseRedirect(reverse('resume_upload'))
+    # else:
+    #     resume = UploadForm()
+    # resumes = Upload.objects.all()
+    # return TemplateResponse(request, 'Upload.html', {'form': resume, 'resumes': resumes})
+    for docToDel in Upload.objects.all():
+        docToDel.resume.delete()
+        # docToDel.delete()
+    Upload.objects.all().delete()
+    # for docToDel in Words.objects.all():
+    #     docToDel.delete()
+    Words.objects.all().delete()
+    return HttpResponseRedirect(reverse('resume_upload'))
+
+
+def home(request):
+    return TemplateResponse(request, 'Home.html')
