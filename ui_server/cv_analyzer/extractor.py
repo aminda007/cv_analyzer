@@ -56,7 +56,10 @@ class Extractor:
             elif 'members' in keys:
                 # print(i)
                 project_name.append(i['title'])
-                project_discription.append(i['description'])
+                if 'description' in keys:
+                    project_discription.append(i['description'])
+                else:
+                    project_discription.append('')
                 if 'url' in keys:
                     project_url.append(i['url'])
                 else:

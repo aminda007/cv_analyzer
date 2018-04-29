@@ -78,6 +78,7 @@ def score_resume(fp):
     div = soup.find_all('span', style=True)
 
     word_array = []
+    linked_in_url = ''
     for data in div:
         style_set = data["style"]
         if 'font' in style_set:
@@ -86,6 +87,9 @@ def score_resume(fp):
                 if ln != '':
                     words = ln.strip().split()
                     for word in words:
+                        if 'linked' in word:
+                            linked_in_url = word
+                            print('4444444444444444444444444444444444444444444444')
                         word_array.append(word
                                           .replace('(', '')
                                           .replace(')', '')
@@ -102,17 +106,13 @@ def score_resume(fp):
                 filtered_words.append(word)
 
     score = 0;
-    linked_in_url = ''
     for item in filtered_words:
-        if 'linked' in item:
-            linked_in_url = item
+        print(item)
         obj_list = Words.objects.filter(word=item)
         if len(obj_list) > 0:
             w_model = obj_list[0]
             w_model_count = w_model.count
             score = w_model_count + score
     # print(Words.objects.all())
-    for i in Words.objects.all():
-        print(i)
 
     return linked_in_url, score

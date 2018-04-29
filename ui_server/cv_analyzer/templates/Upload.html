@@ -22,27 +22,18 @@
                                 <h1>Upload History</h1>
                                 <br>
                                 {% for item in resumes %}
-                                    <div >
-
-                                    <form action="{% url 'resume_delete' %}" method="post" enctype="multipart/form-data">
-
-                                        {% csrf_token %}
-                                        {{forloop.counter}}.<a href="{{ item.resume.url }}">{{ item.resume.name }}</a>
+                                    {{forloop.counter}}.<a href="{{ item.resume.url }}">{{ item.resume.name }}</a>
                                     ({{item.upload_date}})
-
-
-                                            <input type="hidden" name="docfile" value="{{ item.pk }}" />
-                                            <input type="submit" value="Delete" class="btn cur-p btn-outline-danger pull-right" style="margin-right:50px"/>
-
-                                    </form>
-                                    </div>
+                                    <!--<form action="{% url 'resume_delete' %}" method="post" enctype="multipart/form-data">-->
+                                        <!--{% csrf_token %}-->
+                                        <!--<input type="hidden" name="docfile" value="{{ item.pk }}" />-->
+                                        <!--<input type="submit" value="Delete" class="btn cur-p btn-outline-danger pull-right" style="margin-right:50px"/>-->
+                                    <!--</form>-->
                                 <hr />
                                 {% endfor %}
                                 <a class="btn cur-p btn-danger"href="/delete-all">Delete All</a>
                             </div>
-
                         </div>
-
                     </div>
     <!-- End of Personal Info-->
 

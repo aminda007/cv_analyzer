@@ -50,8 +50,9 @@
 <div id="loader" class="fadeOut">
     <div class="spinner"></div>
 </div>
+<script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script>
 <script type="text/javascript" async="" src="static/images/Dashboard_files/analytics.js.download"></script>
-<script type="text/javascript">window.addEventListener('load', () => {
+<script type="text/javascript">window.addEventListener('onload', () => {
         const loader = document.getElementById('loader');
         setTimeout(() => {
           loader.classList.add('fadeOut');
@@ -91,24 +92,30 @@
                 </li>
                 <li class="nav-item"><a class="sidebar-link"
                                         href="/upload-cv"><span
-                        class="icon-holder"><i class="c-red-500 ti-bar-chart"></i> </span><span class="title">Upload Resume</span></a>
+                        class="icon-holder"><i class="c-red-500 ti-pencil"></i> </span><span class="title">Upload Resume</span></a>
                 </li>
                 <li class="nav-item"><a class="sidebar-link"
-                                        href="https://colorlib.com/polygon/adminator/forms.html"><span
-                        class="icon-holder"><i class="c-light-blue-500 ti-pencil"></i> </span><span
-                        class="title">Forms</span></a></li>
-                <li class="nav-item dropdown"><a class="sidebar-link"
-                                                 href="https://colorlib.com/polygon/adminator/ui.html"><span
-                        class="icon-holder"><i class="c-pink-500 ti-palette"></i> </span><span
-                        class="title">UI Elements</span></a></li>
-                <li class="nav-item dropdown"><a class="dropdown-toggle" href="javascript:void(0);"><span
-                        class="icon-holder"><i class="c-orange-500 ti-bar-chart"></i> </span><span
-                        class="title">Analyze</span> <span class="arrow"><i class="ti-angle-right"></i></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a class="sidebar-link" href="/cv-template">Template Resume</a></li>
-                        <li><a class="sidebar-link" href="/cv-linkedin">LinkedIn Profile</a></li>
-                    </ul>
-                </li>
+                                        href="/analysis"><span
+                        class="icon-holder"><i class="c-light-blue-500 ti-bar-chart"></i> </span><span
+                        class="title">Analysis</span></a></li>
+                <li class="nav-item"><a class="sidebar-link"
+                                        href="#"><span
+                        class="icon-holder"><i class="c-orange-500 ti-settings"></i> </span><span
+                        class="title">Settings</span></a></li>
+
+                <!--<li class="nav-item dropdown"><a class="sidebar-link"-->
+                                                 <!--href="https://colorlib.com/polygon/adminator/ui.html"><span-->
+                        <!--class="icon-holder"><i class="c-pink-500 ti-palette"></i> </span><span-->
+                        <!--class="title">UI Elements</span></a></li>-->
+                <!--<li class="nav-item dropdown"><a class="dropdown-toggle" href="javascript:void(0);"><span-->
+                        <!--class="icon-holder"><i class="c-orange-500 ti-bar-chart"></i> </span><span-->
+                        <!--class="title">Analyze</span> <span class="arrow"><i class="ti-angle-right"></i></span></a>-->
+                    <!--<ul class="dropdown-menu">-->
+                        <!--<li><a class="sidebar-link" href="/cv-template">Template Resume</a></li>-->
+                        <!--<li><a class="sidebar-link" href="/cv-linkedin">LinkedIn Profile</a></li>-->
+                    <!--</ul>-->
+                <!--</li>-->
+
                 <!--<li class="nav-item dropdown"><a class="dropdown-toggle" href="javascript:void(0);"><span-->
                         <!--class="icon-holder"><i class="c-teal-500 ti-view-list-alt"></i> </span><span class="title">Multiple Levels</span>-->
                     <!--<span class="arrow"><i class="ti-angle-right"></i></span></a>-->
@@ -143,7 +150,7 @@
                             class="search-icon-close ti-close pdd-right-10"></i></a></li>
                     <li class="search-input"><input class="form-control" type="text" placeholder="Search..."></li>
                     <li>
-                        <div class=" c-black p-10"  ">
+                        <div class=" c-black p-10">
                             <div class="">
                                 <div class="peer peer-greed"><h2>Resume Analyzer™</h2></div>
                             </div>

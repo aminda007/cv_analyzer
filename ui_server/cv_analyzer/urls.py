@@ -30,7 +30,7 @@ urlpatterns = [
     path(r'dashboard', views.DashboardView.as_view()),
     path(r'home', views.home),
     path(r'cv-template', views.cvTemplate),
-    path(r'cv-linkedin', views.cvLinkedIn),
+    path(r'cv-linkedin', views.cvLinkedIn, name='cv_linked_in'),
     # path(r'upload', views.upload_file),
     path(r'delete', views.delete_file, name='resume_delete'),
     path(r'delete-cv', views.delete_file_cv, name='cv_delete'),
@@ -39,6 +39,7 @@ urlpatterns = [
     path(r'upload-cv', views.upload_file_cv, name='cv_upload'),
     path(r'delete-all', views.delete_all),
     path(r'delete-all-cv', views.delete_all_cv),
+    path(r'analysis', views.analysis),
     # path(r'delete-all', views.delete_all, name='resume_delete_all'),
     ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     # path(r'dashboard', views.HomePageView.as_view()),

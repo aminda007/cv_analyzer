@@ -1,0 +1,54 @@
+{% extends 'Dashboard.html' %}
+
+{% block title %}Analysis{% endblock %}
+
+{% block body %}
+    <!-- Personal Info-->
+        <div class="masonry-item col-md-12" style="position: absolute; left: 0%; top: 1032px;">
+                        <div class="bd bgc-white layer w-95 p-10" style="margin-left:10px;">
+                        </div>
+                        <div class="bgc-light-blue-300 c-white p-20">
+                            <div class="peers ai-c jc-sb gap-40">
+                                <div class="peer peer-greed"><h5>Score Board</h5></div>
+                            </div>
+                        </div>
+                        <div class="bd bgc-white" style="margin-left:10px;">
+                            <div style="margin-left:80px; margin-right:80px; margin-top:40px">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th class="bdwT-0">Profiles</th>
+                                            <th class="bdwT-0">Score</th>
+                                            <th class="bdwT-0"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for item in resumes %}
+                                        <tr>
+                                            <td>
+                                                {{forloop.counter}}.<a href="{{ item.resume_do.url }}">{{ item.resume_do.name }}</a>
+                                            </td>
+                                            <td>
+                                                <span class="c-orange-800">{{item.score}}</span>
+                                            </td>
+                                            <td>
+                                                <form action="{% url 'cv_linked_in' %}" method="post" enctype="multipart/form-data">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" name="docfile" value="{{ item.link_url }}" />
+                                                    <input type="submit" value="Info" class="btn cur-p btn-outline-primary pull-right"
+                                                           style="margin-right:50px; "/>
+                                                </form>
+                                            </td>
+                                        <tr>
+                                    {% endfor %}
+                                    <tbody>
+                                </table>
+                            </div>
+
+                        </div>
+
+                    </div>
+    <!-- End of Personal Info-->
+
+
+{% endblock %}
