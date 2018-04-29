@@ -24,10 +24,10 @@
                                 {% for item in resumes %}
                                     <div >
 
-                                    <form action="{% url 'resume_delete' %}" method="post" enctype="multipart/form-data">
+                                    <form action="{% url 'cv_delete' %}" method="post" enctype="multipart/form-data">
 
                                         {% csrf_token %}
-                                        {{forloop.counter}}.<a href="{{ item.resume.url }}">{{ item.resume.name }}</a>
+                                        {{forloop.counter}}.<a href="{{ item.resume_do.url }}">{{ item.resume_do.name }}</a>
                                     ({{item.upload_date}})
 
 
@@ -38,7 +38,7 @@
                                     </div>
                                 <hr />
                                 {% endfor %}
-                                <a class="btn cur-p btn-danger"href="/delete-all">Delete All</a>
+                                <a class="btn cur-p btn-danger"href="/delete-all-cv">Delete All</a>
                             </div>
 
                         </div>

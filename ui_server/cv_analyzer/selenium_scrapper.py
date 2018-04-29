@@ -48,7 +48,7 @@ def scrape_linkedin(pro_url):
         pro_pic_src_splitted = pro_pic_src.split('"')
         pro_pic_src_refined = pro_pic_src_splitted[1]
         print(pro_pic_src_refined+" pro_urls")
-        urllib.request.urlretrieve(pro_pic_src_refined, "cv_analyzer/static/images/pro-pic.jpg")
+        urllib.request.urlretrieve(pro_pic_src_refined, "cv_analyzer/static/images/pro-pic.png")
     except:
         urllib.request.urlretrieve("http://www.davidniklasson.com/in.png", "cv_analyzer/static/images/pro-pic.png")
         print("no pro pic found")

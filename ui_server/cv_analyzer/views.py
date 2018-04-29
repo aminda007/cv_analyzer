@@ -8,10 +8,11 @@ from .pdf_sanner import scanPdf
 from .init import get_linkedin_profile
 from .selenium_scrapper import scrape_linkedin
 from django.http import HttpResponseRedirect
-from .models import UploadForm, Upload, Words
+from .models import UploadForm, Upload, Words, UploadFormCV, UploadCV
 from django.urls import reverse
 from django.shortcuts import get_object_or_404
 from .model_creater import update_model
+from .model_scorer import score_resume
 
 # Create your views here.
 
@@ -120,16 +121,6 @@ def delete_file(request):
 
 
 def delete_all(request):
-    # if request.method == "GET":
-    #     for docToDel in Upload.objects.all():
-    #         docToDel.resume.delete()
-    #         docToDel.delete()
-    #     Upload.objects.all().delete()
-    #     return HttpResponseRedirect(reverse('resume_upload'))
-    # else:
-    #     resume = UploadForm()
-    # resumes = Upload.objects.all()
-    # return TemplateResponse(request, 'Upload.html', {'form': resume, 'resumes': resumes})
     for docToDel in Upload.objects.all():
         docToDel.resume.delete()
         # docToDel.delete()
@@ -142,3 +133,52 @@ def delete_all(request):
 
 def home(request):
     return TemplateResponse(request, 'Home.html')
+
+
+def upload_file_cv(request):
+    if request.method == "POST":
+        resume = UploadFormCV(request.POST, request.FILES)
+        if resume.is_valid():
+            file = resume.cleaned_data.get('resume_do')
+            linked_in, score_value = score_resume(file.file)
+            obj = resume.save(commit=False)
+            obj.score = score_value
+            obj.link_url = linked_in
+            obj.save()
+            print(UploadCV.objects.all())
+            return HttpResponseRedirect(reverse('cv_upload'))
+    else:
+        resume = UploadFormCV()
+    resumes = UploadCV.objects.all()
+    print(UploadCV.objects.all())
+    # print(len(Upload.objects.all()))
+    # return render(request, 'Upload.html', {'form': img, 'images': images})
+    return TemplateResponse(request, 'UploadCV.html', {'form': resume, 'resumes': resumes})
+
+
+def delete_file_cv(request):
+    # if request.method != 'POST':
+    #     raise HTTP404
+    if request.method == "POST":
+        docId = request.POST.get('docfile', None)
+        print("docid "+docId)
+        docToDel = get_object_or_404(Upload, pk=docId)
+        print("deleted_id "+docToDel.resume_do.url)
+        docToDel.resume_do.delete()
+        print()
+        docToDel.delete()
+        return HttpResponseRedirect(reverse('cv_upload'))
+    else:
+        resume = UploadFormCV()
+    resumes = UploadCV.objects.all()
+    # print()
+    # return render(request, 'Upload.html', {'form': img, 'images': images})
+    return TemplateResponse(request, 'UploadCV.html', {'form': resume, 'resumes': resumes})
+
+
+def delete_all_cv(request):
+    for docToDel in UploadCV.objects.all():
+        docToDel.resume_do.delete()
+        # docToDel.delete()
+    UploadCV.objects.all().delete()
+    return HttpResponseRedirect(reverse('cv_upload'))
