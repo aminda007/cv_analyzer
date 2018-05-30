@@ -1,3 +1,4 @@
+from django.db.models.functions import Coalesce
 from pdfminer.pdfparser import PDFParser
 from pdfminer.pdfdocument import PDFDocument
 from pdfminer.pdfpage import PDFPage
@@ -11,9 +12,11 @@ from pdfminer.converter import HTMLConverter
 from pdfminer.image import ImageWriter
 from io import StringIO
 from nltk.corpus import stopwords
+from nltk.stem import WordNetLemmatizer
 from bs4 import BeautifulSoup
-
+import re
 from .models import Words
+from .export_data import write_word_count
 
 
 def update_model(fp):
@@ -86,25 +89,41 @@ def read_model():
     soup = BeautifulSoup(html, 'html.parser')
     div = soup.find_all('span', style=True)
 
-    word_array = []
+    filtered_words = []
+    stop_words = set(stopwords.words('english'))
+    lemmatizer = WordNetLemmatizer()
+    gpa_found = False
+    c_found = False
+    gpa = ''
     for data in div:
         style_set = data["style"]
         if 'font' in style_set:
             lines = data.text.split('\n')
             for ln in lines:
                 if ln != '':
+                    #  replace unwanted characters
+                    ln = ln.replace('(', ' ').replace(')', ' ').replace('/', ' ').replace(',', ' ').replace('-', '')
                     words = ln.strip().split()
                     for word in words:
-                        word_array.append(word.replace('(', '').replace(')', '').replace(',', '').replace('-', '').lower())
-
-    stop_words = set(stopwords.words('english'))
-    filtered_words = []
-
-    for word in word_array:
-        if word not in stop_words:
-            if word != ':' and word != '-':
-                filtered_words.append(word)
-
+                        word = re.sub(r'(?<!\d)\.(?!\d)', '', word)  # remove pull stops
+                        #  the only word with one letter is C
+                        if not c_found:
+                            if word == 'C':
+                                filtered_words.append('c')
+                                c_found = True
+                        word = word.lower()  # convert to lower case
+                        if word not in stop_words:
+                            # check for numbers and minimum word length is 2
+                            if len(word) > 1 and not bool(re.search(r'\d', word)):
+                                # extract gpa
+                                if word == 'gpa':
+                                    gpa_found = True
+                                filtered_words.append(lemmatizer.lemmatize(word, pos="n"))
+                            else:
+                                if gpa_found and not bool(re.search('[a-zA-Z]', word)):
+                                    gpa = word
+                                    gpa_found = False
+    print('gpa is ' + gpa)
     save_model(filtered_words)
 
 
@@ -116,16 +135,22 @@ def save_model(word_list):
 
     for item in word_list:
         obj_list = Words.objects.filter(word=item)
-        # print('iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii')
+        # print(item)
         if len(obj_list) > 0:
             w_existing = obj_list[0]
             w_existing_count = w_existing.count
             w_existing.count = w_existing_count + 1
             w_existing.save()
-
         else:
             w = Words(word=item, count=1)
             w.save()
     # print(Words.objects.all())
-    for i in Words.objects.all():
+    ordered_word_list = Words.objects.order_by('-count')
+
+    total_word_count = 0
+    for i in ordered_word_list:
+        w_existing_count = i.count
+        total_word_count = total_word_count + w_existing_count*w_existing_count
         print(i)
+
+    write_word_count(total_word_count)

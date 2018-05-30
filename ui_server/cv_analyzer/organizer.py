@@ -30,9 +30,9 @@ def organize():
     html = open('cv_analyzer/cv.txt', 'rb', buffering=1).read(1000000)
     # print(html)
     soup = BeautifulSoup(html, 'html.parser')
-    print("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS\n"+str(soup))
+    # print("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS\n"+str(soup))
     div = soup.find_all('span', style=True)
-    print("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD\n"+str(div))
+    # print("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD\n"+str(div))
     font_array = []
     line_array = []
     for data in div:
@@ -107,21 +107,21 @@ def organize():
     for line in line_array:
         font = int(line['font'])
         line = line['text']
-        print('***********************************************************************')
-        print('init font is '+str(font))
-        print('init text is '+str(line))
-        print('init heading is '+str(heading_array))
-        print('init sub_heading is '+str(sub_heading_array))
-        print('init body is '+str(body_array))
+        # print('***********************************************************************')
+        # print('init font is '+str(font))
+        # print('init text is '+str(line))
+        # print('init heading is '+str(heading_array))
+        # print('init sub_heading is '+str(sub_heading_array))
+        # print('init body is '+str(body_array))
 
         if (font == font_heading):
 
             if heading_started:
-                print('inside heading')
+                # print('inside heading')
                 sub_heading["body"] = body_array
                 sub_heading_array.append(sub_heading)
                 heading["sub_heading"] = sub_heading_array
-                print('final heading iiiisss'+str(heading))
+                # print('final heading iiiisss'+str(heading))
                 heading_array.append(heading)
 
 
@@ -136,7 +136,7 @@ def organize():
             # print('heading iiiisss'+str(heading))
 
         elif (font == font_subheading):
-            print('inside sub heading')
+            # print('inside sub heading')
             if sub_heading_started:
                 sub_heading["body"] = body_array
                 sub_heading_array.append(sub_heading)
@@ -146,11 +146,11 @@ def organize():
             sub_heading_started = True
 
         elif (font == font_body):
-            print('inside body')
+            # print('inside body')
             body = {}
             body['line'] = line
             body_array.append(body)
-            print('inside body')
+            # print('inside body')
 
     # print(sub_heading_array)
     sub_heading["body"] = body_array
@@ -160,7 +160,7 @@ def organize():
 
     cv['data']= heading_array
     json_data = json.dumps(cv)
-    print(json_data)
+    # print(json_data)
 
     def get_heading_data(type):
         heading_data = []
@@ -185,9 +185,9 @@ def organize():
     # print('Email:                 ' + cv['email'])
     # print('LinkedIn Profile URL:  '+cv['linkedin'])
     writePersonalInfo( cv['name'], cv['email'], cv['linkedin'])
-    print('Education:             '+get_heading_data('ducation'))
-    print('Experience:            '+get_heading_data('xperience'))
+    # print('Education:             '+get_heading_data('ducation'))
+    # print('Experience:            '+get_heading_data('xperience'))
     writeProjects(get_heading_data('xperience'))
     # print('Skills:                '+get_heading_data('kills'))
     write_skills(get_heading_data('kills'))
-    print('Achievement:           '+get_heading_data('chievement'))
+    # print('Achievement:           '+get_heading_data('chievement'))

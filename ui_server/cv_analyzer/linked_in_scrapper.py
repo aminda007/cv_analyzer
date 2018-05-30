@@ -41,7 +41,7 @@ class Linked_in_scraper:
 
         div = soup_profile.find_all('code')
         data=div[24].text
-        print(data + '1111111111111111111111111111111111111111111111111')
+        # print(data + '1111111111111111111111111111111111111111111111111')
         jsonData=json.loads(str(data))
 
         extract = Extractor()

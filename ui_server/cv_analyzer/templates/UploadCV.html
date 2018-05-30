@@ -21,16 +21,25 @@
                                 <br>
                                 <h1>Upload History</h1>
                                 <br>
-                                {% for item in resumes %}
-                                    {{forloop.counter}}.<a href="{{ item.resume_do.url }}">{{ item.resume_do.name }}</a>
-                                    ({{item.upload_date}})
-                                    <form action="{% url 'cv_delete' %}" method="post" enctype="multipart/form-data">
-                                        {% csrf_token %}
-                                        <input type="hidden" name="docfile" value="{{ item.pk }}" />
-                                        <input type="submit" value="Delete" class="btn cur-p btn-outline-danger pull-right" style="margin-right:50px"/>
-                                    </form>
-                                <hr />
-                                {% endfor %}
+                                 <table class="table">
+                                    <tbody>
+                                        {% for item in resumes %}
+                                            <tr>
+                                                <td>
+                                                    {{forloop.counter}}.<a href="{{ item.resume_do.url }}">{{ item.resume_do.name }}</a>
+                                                    ({{item.upload_date}})
+                                                </td>
+                                                <td>
+                                                    <form action="{% url 'cv_delete' %}" method="post" enctype="multipart/form-data">
+                                                        {% csrf_token %}
+                                                        <input type="hidden" name="docfile" value="{{ item.pk }}" />
+                                                        <input type="submit" value="Delete" class="btn cur-p btn-outline-danger pull-right" style="margin-right:50px"/>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    <tbody>
+                                </table>
                                 <a class="btn cur-p btn-danger"href="/delete-all-cv">Delete All</a>
                             </div>
                         </div>

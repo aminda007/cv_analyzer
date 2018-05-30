@@ -29,12 +29,12 @@
                                                 {{forloop.counter}}.<a href="{{ item.resume_do.url }}">{{ item.resume_do.name }}</a>
                                             </td>
                                             <td>
-                                                <span class="c-orange-800">{{item.score}}</span>
+                                                <span class="badge bgc-red-50 c-red-700 p-10 lh-0 tt-c badge-pill">{{item.score}}</span>
                                             </td>
                                             <td>
                                                 <form action="{% url 'cv_linked_in' %}" method="post" enctype="multipart/form-data">
                                                     {% csrf_token %}
-                                                    <input type="hidden" name="docfile" value="{{ item.link_url }}" />
+                                                    <input type="hidden" name="docfile" value="{{ item.pk }}" />
                                                     <input type="submit" value="Info" class="btn cur-p btn-outline-primary pull-right"
                                                            style="margin-right:50px; "/>
                                                 </form>

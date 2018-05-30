@@ -11,8 +11,9 @@ from pdfminer.converter import HTMLConverter
 from pdfminer.image import ImageWriter
 from io import StringIO
 from nltk.corpus import stopwords
+from nltk.stem import WordNetLemmatizer
 from bs4 import BeautifulSoup
-
+import re
 from .models import Words
 
 
@@ -77,7 +78,12 @@ def score_resume(fp):
     soup = BeautifulSoup(html, 'html.parser')
     div = soup.find_all('span', style=True)
 
-    word_array = []
+    filtered_words = []
+    stop_words = set(stopwords.words('english'))
+    lemmatizer = WordNetLemmatizer()
+    gpa_found = False
+    c_found = False
+    gpa = ''
     linked_in_url = ''
     for data in div:
         style_set = data["style"]
@@ -85,29 +91,37 @@ def score_resume(fp):
             lines = data.text.split('\n')
             for ln in lines:
                 if ln != '':
+                    #  replace unwanted characters
+                    ln = ln.replace('(', ' ').replace(')', ' ').replace(',', ' ').replace('-', '')
                     words = ln.strip().split()
                     for word in words:
+                        # extract linkedin url
                         if 'linked' in word:
                             linked_in_url = word
-                            print('4444444444444444444444444444444444444444444444')
-                        word_array.append(word
-                                          .replace('(', '')
-                                          .replace(')', '')
-                                          .replace(',', '')
-                                          .replace('-', '')
-                                          .lower())
-
-    stop_words = set(stopwords.words('english'))
-    filtered_words = []
-
-    for word in word_array:
-        if word not in stop_words:
-            if word != ':' and word != '-':
-                filtered_words.append(word)
+                        word = re.sub(r'(?<!\d)\.(?!\d)', '', word)  # remove pull stops
+                        #  the only word with one letter is C
+                        if not c_found:
+                            if word == 'C':
+                                filtered_words.append('c')
+                                c_found = True
+                        word = word.lower()  # convert to lower case
+                        if word not in stop_words:
+                            # check for numbers and minimum word length is 2
+                            if len(word) > 1 and not bool(re.search(r'\d', word)):
+                                # extract gpa
+                                if word == 'gpa':
+                                    gpa_found = True
+                                filtered_words.append(lemmatizer.lemmatize(word, pos="n"))
+                            else:
+                                if gpa_found and not bool(re.search('[a-zA-Z]', word)) and len(word) > 2:
+                                    gpa = word
+                                    gpa_found = False
+    print('gpa is ' + gpa)
+    # print('linkedin url is ' + linked_in_url)
 
     score = 0;
     for item in filtered_words:
-        print(item)
+        # print(item)
         obj_list = Words.objects.filter(word=item)
         if len(obj_list) > 0:
             w_model = obj_list[0]
@@ -115,4 +129,8 @@ def score_resume(fp):
             score = w_model_count + score
     # print(Words.objects.all())
 
-    return linked_in_url, score
+    if gpa == '':
+        gpa = 2.0
+
+    print('model score is ' + str(score))
+    return linked_in_url, score, float(gpa)

@@ -155,3 +155,8 @@ def write_endoresed_data(data):
     with open('cv_analyzer/static/csv_data/endoresed_data.csv', 'w') as csv_file:
         csv_writer = csv.writer(csv_file, delimiter=',')
         csv_writer.writerow([data])
+
+def write_word_count(count):
+    with open('cv_analyzer/static/csv_data/word_count.csv', 'w') as csv_file:
+        csv_writer = csv.writer(csv_file, delimiter=',')
+        csv_writer.writerow([count])

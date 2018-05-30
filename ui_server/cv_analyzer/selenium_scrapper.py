@@ -47,10 +47,10 @@ def scrape_linkedin(pro_url):
         pro_pic_src = pro_pic.get_attribute("style")
         pro_pic_src_splitted = pro_pic_src.split('"')
         pro_pic_src_refined = pro_pic_src_splitted[1]
-        print(pro_pic_src_refined+" pro_urls")
-        urllib.request.urlretrieve(pro_pic_src_refined, "cv_analyzer/static/images/pro-pic.png")
+        # print(pro_pic_src_refined+" pro_urls")
+        urllib.request.urlretrieve(pro_pic_src_refined, "cv_analyzer/static/images/profile_pictures"+pro_url[27:]+".png")
     except:
-        urllib.request.urlretrieve("http://www.davidniklasson.com/in.png", "cv_analyzer/static/images/pro-pic.png")
+        urllib.request.urlretrieve("http://www.davidniklasson.com/in.png", "cv_analyzer/static/images/profile_pictures"+ pro_url[27:]+".png")
         print("no pro pic found")
     # driver.close()
     newSkills = []
@@ -66,14 +66,14 @@ def scrape_linkedin(pro_url):
                 newSkills.append(skill_line)
                 skill_line = ''
             skill_line = skill.text + '$'
-            scrapped_data += skill.text
+            scrapped_data += skill.text + ' '
         if 'pv-skill-category-entity__endorsement-count Sans-15px-black-70%' in skill.get_attribute("class"):
             skill_line += skill.text
             total_endoresed += int(skill.text)
-    for i in newSkills:
-        print(i)
-
+    # for i in newSkills:
+        # print(i)
+    endoresed_marks = min(max(int(total_endoresed/250*100), 20), 100)
     writeSkillsLinkedIn(newSkills)
-    write_endoresed_data(total_endoresed)
+    write_endoresed_data(endoresed_marks)
     updata_all_data(scrapped_data)
     write_total_score(import_all_data().split(), 'link_score')

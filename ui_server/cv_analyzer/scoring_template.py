@@ -43,4 +43,4 @@ def write_total_score(word_list, filename,
         csv_writer = csv.writer(csv_file, delimiter=',')
         csv_writer.writerow([score_programming, score_software, score_engineering, score_finance, score_management, score_art, score_total])
 
-write_total_score(["java", "emacs", "lisp", "go!"], "java")
+# write_total_score(["java", "emacs", "lisp", "go!"], "java")

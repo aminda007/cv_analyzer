@@ -17,7 +17,7 @@
                                     <div class="" style='transform:translate(50%,-60%); margin-right:100px'>
                                         <div class="bgc-white bdrs-50p pos-r" style="width:170px;height:170px">
                                             <img class="pos-a centerXY w-6r bdrs-50p" style="width:150px;height:150px"
-                                             src="static/images/pro-pic.png"
+                                             src={{ pic_path }}
                                              alt="">
                                         </div>
                                     </div>
@@ -74,13 +74,18 @@
                                                     <span class="fsz-sm c-grey-800">{{organizations}}</span>
                                                 </td>
                                             </tr>
+                                            <tr>
+                                                <td class="fw-600">GPA</td>
+                                                <td>
+                                                    <span class="fsz-sm c-grey-800">{{gpa}}</span>
+                                                </td>
+                                            </tr>
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
                             </div>
-                            <div class="ta-c bdT w-100 p-20"><a
-                                    href="https://colorlib.com/polygon/adminator/index.html#">Check all the sales</a>
+                            <div class="ta-c bdT w-100 p-20">
                             </div>
                         </div>
                     </div>
@@ -110,6 +115,16 @@
                                                 <br>
                                                 <span class="fsz-md">Section Scores</span>
                                                 <div class="layer w-100 mT-15">
+                                                    <medium class="fw-600 c-grey-700">Programming </medium>
+                                                    <span class="pull-right c-grey-600 fsz-sm">{{score_programming}}%</span>
+                                                    <div class="progress mT-10">
+                                                        <div class="progress-bar bgc-blue-300" role="progressbar"
+                                                             aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
+                                                             style="width:{{score_programming}}%"><span class="sr-only">10/10 complete</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="layer w-100 mT-15">
                                                     <medium class="fw-600 c-grey-700">Software </medium>
                                                     <span class="pull-right c-grey-600 fsz-sm">{{score_software}}%</span>
                                                     <div class="progress mT-10">
@@ -133,7 +148,7 @@
                                                     <medium class="fw-600 c-grey-700">Finance</medium>
                                                     <span class="pull-right c-grey-600 fsz-sm">{{score_finance}}%</span>
                                                     <div class="progress mT-10">
-                                                        <div class="progress-bar bgc-light-blue-500" role="progressbar"
+                                                        <div class="progress-bar bgc-purple-300" role="progressbar"
                                                              aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
                                                              style="width:{{score_finance}}%"><span class="sr-only">40% Complete</span>
                                                         </div>
@@ -200,12 +215,13 @@
                             </div>
                         </div>
                         <div class="bd bgc-white" style="margin-left:10px;">
-                            <div class="layers">
-                                <div class="layer w-100">
-                                    <div class="table-responsive p-20" style="margin:10px;">
+                            <div class="layers ">
+                                <div class="layer w-100 col-md-9">
+                                    <div class="table-responsive p-20 " style="margin:10px;">
                                         <table class="table">
                                             <thead>
                                             <tr>
+                                                <th class="bdwT-0"></th>
                                                 <th class="bdwT-0">Skill</th>
                                                 <th class="bdwT-0">Score</th>
                                             </tr>
@@ -214,8 +230,12 @@
                                             {% for skill in skills_endoresed %}
                                                 {% for s_name,s_score in  skill %}
                                             <tr>
+                                                <td class="fw-600"></td>
                                                 <td class="fw-600">{{ s_name }}</td>
-                                                <td><span class="fsz-sm c-grey-800">{{s_score}}</span><br></td>
+                                                <td>
+                                                    <span class="badge bgc-blue-50 c-blue-700 p-10 lh-0 tt-c badge-pill">{{s_score}}</span>
+                                                </td>
+                                                <td class="fw-600"></td>
                                             </tr>
                                                 {% endfor %}
                                             {% endfor %}
@@ -224,8 +244,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="ta-c bdT w-100 p-20"><a
-                                    href="https://colorlib.com/polygon/adminator/index.html#">Check all the sales</a>
+                            <div class="ta-c bdT w-100 p-20">
                             </div>
                         </div>
                     </div>
@@ -268,8 +287,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="ta-c bdT w-100 p-20"><a
-                                    href="https://colorlib.com/polygon/adminator/index.html#">Check all the sales</a>
+                            <div class="ta-c bdT w-100 p-20">
                             </div>
                         </div>
                     </div>

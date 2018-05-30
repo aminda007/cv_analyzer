@@ -42,7 +42,7 @@ class Extractor:
                     experience.append(i['name'])
                 if (len(i) == 4):
                     if (i['$type'] == 'com.linkedin.voyager.identity.profile.Skill' ):
-                        print(i)
+                        # print(i)
                         skills.append(i['name'])
                 if (len(i) == 6):
                     courses.append(i['name'])
@@ -86,16 +86,16 @@ class Extractor:
         for i in range(len(project_name)):
             projectList += '@#---' +(project_name[i] + '\n' + '--' + project_discription[i] + '\n--'+ project_url[i] +'\n');
 
-        print('\n' + 'Name:       ' + firstName + ' ' + lastName + '\n---------------------------------------------------------------------------\n'
-                'Occupation: ' + occupation + '\n---------------------------------------------------------------------------\n'
-                'Summary:    ' + summary + '\n---------------------------------------------------------------------------\n'
-                'Skills:     ' + skillsList[:-2] + '\n---------------------------------------------------------------------------\n'
-                'Experience: ' + experienceList[:-2]+ '\n---------------------------------------------------------------------------\n'
-                'Courses: ' + courseList[:-2]+ '\n---------------------------------------------------------------------------\n'
-                'Organizations: ' + organizationList+ '\n---------------------------------------------------------------------------\n'
-                'Projects: ' + projectList
-              )
+        # print('\n' + 'Name:       ' + firstName + ' ' + lastName + '\n---------------------------------------------------------------------------\n'
+        #         'Occupation: ' + occupation + '\n---------------------------------------------------------------------------\n'
+        #         'Summary:    ' + summary + '\n---------------------------------------------------------------------------\n'
+        #         'Skills:     ' + skillsList[:-2] + '\n---------------------------------------------------------------------------\n'
+        #         'Experience: ' + experienceList[:-2]+ '\n---------------------------------------------------------------------------\n'
+        #         'Courses: ' + courseList[:-2]+ '\n---------------------------------------------------------------------------\n'
+        #         'Organizations: ' + organizationList+ '\n---------------------------------------------------------------------------\n'
+        #         'Projects: ' + projectList
+        #       )
 
         writePersonalInfoLinkedIn(firstName + ' ' + lastName, occupation, summary, skillsList[:-2], experienceList[:-2], courseList[:-2], organizationList)
         writeProjectsLinkedIn(projectList)
-        write_all_data(firstName+lastName+occupation+summary+skillsList[:-2]+experienceList[:-2]+courseList[:-2]+organizationList+projectList)
+        write_all_data(firstName+lastName+' '+occupation+' '+summary+' '+skillsList[:-2]+' '+experienceList[:-2]+' '+courseList[:-2]+' '+organizationList+' '+projectList)
