@@ -92,12 +92,13 @@ def score_resume(fp):
             for ln in lines:
                 if ln != '':
                     #  replace unwanted characters
-                    ln = ln.replace('(', ' ').replace(')', ' ').replace(',', ' ').replace('-', '')
+                    ln = ln.replace('(', ' ').replace(')', ' ').replace(',', ' ')
                     words = ln.strip().split()
                     for word in words:
                         # extract linkedin url
                         if 'linked' in word:
                             linked_in_url = word
+                        word = word.replace('-', '')
                         word = re.sub(r'(?<!\d)\.(?!\d)', '', word)  # remove pull stops
                         #  the only word with one letter is C
                         if not c_found:
