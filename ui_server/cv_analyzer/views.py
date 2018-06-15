@@ -8,7 +8,7 @@ from .pdf_sanner import scanPdf
 from .init import get_linkedin_profile
 from .selenium_scrapper import scrape_linkedin
 from django.http import HttpResponseRedirect
-from .models import UploadForm, Upload, Words, UploadFormCV, UploadCV
+from .models import UploadForm, Upload, Words, UploadFormCV, UploadCV, Skills
 from django.urls import reverse
 from django.shortcuts import get_object_or_404
 from .model_creater import update_model
@@ -216,8 +216,58 @@ def get_total_score(score,gpa):
     section_score = int(importScoreDataLinkedIn()[6])/100*20
     gpa_score = gpa/4.2*20
     print('model score is ' + str(model_score))
-    print('endoresement score is ' + str(endoresement_score))
+    print('endorsement score is ' + str(endoresement_score))
     print('section score is ' + str(section_score))
     print('gpa score is ' + str(gpa_score))
     print('total score is ' + str(model_score+endoresement_score+section_score+gpa_score))
     return int(model_score+endoresement_score+section_score+gpa_score)
+
+
+def add_skills(request):
+    skills_front_end = Skills.objects.filter(category='Front-end')
+    skills_back_end = Skills.objects.filter(category='Back-end')
+    skills_quality_assurance = Skills.objects.filter(category='Quality Assurance')
+    skills_business_analysis = Skills.objects.filter(category='Business Analysis')
+    skills_database = Skills.objects.filter(category='Database')
+    return TemplateResponse(request, 'AddSkills.html', {'skills_front_end': skills_front_end,
+                                                        'skills_back_end': skills_back_end,
+                                                        'skills_quality_assurance': skills_quality_assurance,
+                                                        'skills_business_analysis': skills_business_analysis,
+                                                        'skills_database': skills_database})
+
+
+def add_skill(request):
+    if request.method == "POST":
+        skill = request.POST.get('skill', None)
+        category = request.POST.get('category', None)
+        priority = request.POST.get('priority', None)
+        obj_list = Skills.objects.filter(skill=skill)
+
+        priority_class = ""
+        if priority == "High":
+            priority_class = "badge bgc-red-50 c-red-700 p-10 lh-0 tt-c badge-pill"
+        elif priority == "Medium":
+            priority_class = "badge bgc-green-50 c-green-700 p-10 lh-0 tt-c badge-pill"
+        else:
+            priority_class = "badge bgc-blue-50 c-blue-700 p-10 lh-0 tt-c badge-pill"
+
+        if len(obj_list) > 0:
+            print("do nothing")
+        else:
+            s = Skills(skill=skill, category=category, priority=priority, priority_class=priority_class)
+            s.save()
+        return HttpResponseRedirect(reverse('skills_add'))
+    else:
+        resume = UploadFormCV()
+    resumes = UploadCV.objects.all()
+    return TemplateResponse(request, 'UploadCV.html', {'form': resume, 'resumes': resumes})
+
+
+def delete_skill(request):
+    if request.method == "POST":
+        doc_id = request.POST.get('id', None)
+        doc_to_del = get_object_or_404(Skills, pk=doc_id)
+        doc_to_del.delete()
+        return HttpResponseRedirect(reverse('skills_add'))
+    else:
+        return HttpResponseRedirect(reverse('skills_add'))

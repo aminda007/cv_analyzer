@@ -40,6 +40,9 @@ urlpatterns = [
     path(r'delete-all', views.delete_all),
     path(r'delete-all-cv', views.delete_all_cv),
     path(r'analysis', views.analysis),
+    path(r'add-skills', views.add_skills, name='skills_add'),
+    path(r'add-skill', views.add_skill, name='skill_add'),
+    path(r'delete-skill', views.delete_skill, name='skill_delete'),
     # path(r'delete-all', views.delete_all, name='resume_delete_all'),
     ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     # path(r'dashboard', views.HomePageView.as_view()),

@@ -57,3 +57,13 @@ class UploadFormCV(ModelForm):
     class Meta:
         model = UploadCV
         fields = ('resume_do',)
+
+
+class Skills(models.Model):
+    skill = models.CharField(max_length=50)
+    category = models.CharField(max_length=30)
+    priority = models.CharField(max_length=10)
+    priority_class = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.category + ' ' + str(self.count)

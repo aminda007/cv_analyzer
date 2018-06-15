@@ -1,0 +1,251 @@
+{% extends 'Dashboard.html' %}
+
+{% block title %}Analysis{% endblock %}
+
+{% block body %}
+
+<!--Skill Input Section-->
+<div class="masonry-item col-md-12" style="position: absolute; left: 50%; top: 0px;">
+    <div style="margin-left:10px;" class="bgc-white p-20 bd" ><h6 class="c-grey-900">Add new skill</h6>
+        <div class="mT-30">
+            <form action="{% url 'skill_add' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <label for="category">Category</label>
+                        <select id="category" name="category" class="form-control">
+                            <option selected="selected">Front-end</option>
+                            <option>Back-end</option>
+                            <option>Quality Assurance</option>
+                            <option>Business Analysis</option>
+                            <option>Database</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="priority">Priority</label>
+                        <select id="priority" name="priority" class="form-control">
+                            <option selected="selected">High</option>
+                            <option>Medium</option>
+                            <option>Low</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="skill">Skill</label>
+                        <input type="text" class="form-control" id="skill" name="skill">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <button type="submit" class="btn btn-primary" style="margin-top:28px; margin-left:12px; ">Add</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!--Front End Skills List-->
+<div class="masonry-item col-md-12" style="position: absolute; left: 0%; top: 1032px;">
+    <div class="bd bgc-white layer w-95 p-10" style="margin-left:10px;">
+    </div>
+    <div class="bgc-light-blue-300 c-white p-20">
+        <div class="peers ai-c jc-sb gap-40">
+            <div class="peer peer-greed"><h5>Front-end Skills</h5></div>
+        </div>
+    </div>
+    <div class="bd bgc-white" style="margin-left:10px;">
+        <div style="margin-left:80px; margin-right:80px; margin-top:40px">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th class="bdwT-0">Skill</th>
+                    <th class="bdwT-0">Priority</th>
+                    <th class="bdwT-0"></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in skills_front_end %}
+                <tr>
+                    <td class="fw-600" style="width:40%">{{ item.skill }}</td>
+                    <td style="width:20%">
+                        <span class="{{item.priority_class}}">{{item.priority}}</span>
+                    </td>
+                    <td style="width:30%">
+                        <form action="{% url 'skill_delete' %}" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <input type="hidden" name="id" value="{{ item.pk }}" />
+                            <input type="submit" value="Delete" class="btn cur-p btn-outline-danger pull-right" style=" margin-right:50px"/>
+                        </form>
+                    </td>
+                <tr>
+                    {% endfor %}
+                <tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!--Back End Skills List-->
+<div class="masonry-item col-md-12" style="position: absolute; left: 0%; top: 1032px;">
+    <div class="bd bgc-white layer w-95 p-10" style="margin-left:10px;">
+    </div>
+    <div class="bgc-light-blue-300 c-white p-20">
+        <div class="peers ai-c jc-sb gap-40">
+            <div class="peer peer-greed"><h5>Back-End Skills</h5></div>
+        </div>
+    </div>
+    <div class="bd bgc-white" style="margin-left:10px;">
+        <div style="margin-left:80px; margin-right:80px; margin-top:40px">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th class="bdwT-0">Skill</th>
+                    <th class="bdwT-0">Priority</th>
+                    <th class="bdwT-0"></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in skills_back_end %}
+                <tr>
+                    <td class="fw-600" style="width:40%">{{ item.skill }}</td>
+                    <td style="width:20%">
+                        <span class="{{item.priority_class}}">{{item.priority}}</span>
+                    </td>
+                    <td style="width:30%">
+                        <form action="{% url 'skill_delete' %}" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <input type="hidden" name="id" value="{{ item.pk }}" />
+                            <input type="submit" value="Delete" class="btn cur-p btn-outline-danger pull-right" style=" margin-right:50px"/>
+                        </form>
+                    </td>
+                <tr>
+                    {% endfor %}
+                <tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!--Quality Assurance Skills List-->
+<div class="masonry-item col-md-12" style="position: absolute; left: 0%; top: 1032px;">
+    <div class="bd bgc-white layer w-95 p-10" style="margin-left:10px;">
+    </div>
+    <div class="bgc-light-blue-300 c-white p-20">
+        <div class="peers ai-c jc-sb gap-40">
+            <div class="peer peer-greed"><h5>Quality Assurance Skills</h5></div>
+        </div>
+    </div>
+    <div class="bd bgc-white" style="margin-left:10px;">
+        <div style="margin-left:80px; margin-right:80px; margin-top:40px">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th class="bdwT-0">Skill</th>
+                    <th class="bdwT-0">Priority</th>
+                    <th class="bdwT-0"></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in skills_quality_assurance %}
+                <tr>
+                    <td class="fw-600" style="width:40%">{{ item.skill }}</td>
+                    <td style="width:20%">
+                        <span class="{{item.priority_class}}">{{item.priority}}</span>
+                    </td>
+                    <td style="width:30%">
+                        <form action="{% url 'skill_delete' %}" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <input type="hidden" name="id" value="{{ item.pk }}" />
+                            <input type="submit" value="Delete" class="btn cur-p btn-outline-danger pull-right" style=" margin-right:50px"/>
+                        </form>
+                    </td>
+                <tr>
+                    {% endfor %}
+                <tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!--Business Analysis Skills List-->
+<div class="masonry-item col-md-12" style="position: absolute; left: 0%; top: 1032px;">
+    <div class="bd bgc-white layer w-95 p-10" style="margin-left:10px;">
+    </div>
+    <div class="bgc-light-blue-300 c-white p-20">
+        <div class="peers ai-c jc-sb gap-40">
+            <div class="peer peer-greed"><h5>Business Analysis Skills</h5></div>
+        </div>
+    </div>
+    <div class="bd bgc-white" style="margin-left:10px;">
+        <div style="margin-left:80px; margin-right:80px; margin-top:40px">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th class="bdwT-0">Skill</th>
+                    <th class="bdwT-0">Priority</th>
+                    <th class="bdwT-0"></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in skills_business_analysis %}
+                <tr>
+                    <td class="fw-600" style="width:40%">{{ item.skill }}</td>
+                    <td style="width:20%">
+                        <span class="{{item.priority_class}}">{{item.priority}}</span>
+                    </td>
+                    <td style="width:30%">
+                        <form action="{% url 'skill_delete' %}" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <input type="hidden" name="id" value="{{ item.pk }}" />
+                            <input type="submit" value="Delete" class="btn cur-p btn-outline-danger pull-right" style=" margin-right:50px"/>
+                        </form>
+                    </td>
+                <tr>
+                    {% endfor %}
+                <tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!--Database Skills List-->
+<div class="masonry-item col-md-12" style="position: absolute; left: 0%; top: 1032px;">
+    <div class="bd bgc-white layer w-95 p-10" style="margin-left:10px;">
+    </div>
+    <div class="bgc-light-blue-300 c-white p-20">
+        <div class="peers ai-c jc-sb gap-40">
+            <div class="peer peer-greed"><h5>Database Skills</h5></div>
+        </div>
+    </div>
+    <div class="bd bgc-white" style="margin-left:10px;">
+        <div style="margin-left:80px; margin-right:80px; margin-top:40px">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th class="bdwT-0">Skill</th>
+                    <th class="bdwT-0">Priority</th>
+                    <th class="bdwT-0"></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in skills_database %}
+                <tr>
+                    <td class="fw-600" style="width:40%">{{ item.skill }}</td>
+                    <td style="width:20%">
+                        <span class="{{item.priority_class}}">{{item.priority}}</span>
+                    </td>
+                    <td style="width:30%">
+                        <form action="{% url 'skill_delete' %}" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <input type="hidden" name="id" value="{{ item.pk }}" />
+                            <input type="submit" value="Delete" class="btn cur-p btn-outline-danger pull-right" style=" margin-right:50px"/>
+                        </form>
+                    </td>
+                <tr>
+                    {% endfor %}
+                <tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
