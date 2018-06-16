@@ -23,14 +23,6 @@ def cvLinkedIn(request):
         docId = request.POST.get('docfile', None)
         profile = get_object_or_404(UploadCV, pk=docId)
 
-        # pro_url= 'https://www.linkedin.com/in/manura-jithmal-de-silva-988b385b/'
-        # pro_url= 'https://www.linkedin.com/in/aminda-abeywardana-6aa8b845/'
-        # pro_url= 'https://www.linkedin.com/in/chamodsamarajeewa/'
-        # pro_url= 'https://www.linkedin.com/in/shatheesh-sohan-b9a0b4b8/'
-        # pro_url= 'https://www.linkedin.com/in/mihiran-rajapaksha/'
-        # pro_url= 'https://www.linkedin.com/in/ksuthagar/'
-        # pro_url= 'https://www.linkedin.com/in/anuradha-sithuruwan-a971b7126/'
-
         return TemplateResponse(request, 'LinkedInAnalyzer.html', {'name': profile.name,
                                                             'occupation': profile.occupation,
                                                             'summary': profile.summary,
@@ -40,12 +32,11 @@ def cvLinkedIn(request):
                                                             'organizations': profile.organizations,
                                                             'projects': json.loads(profile.projects),
                                                             'skills_endoresed': json.loads(profile.skills_endoresed),
-                                                            'score_programming': profile.score_programming,
-                                                            'score_software': profile.score_software,
-                                                            'score_engineering': profile.score_engineering,
-                                                            'score_finance': profile.score_finance,
-                                                            'score_management': profile.score_management,
-                                                            'score_art': profile.score_art,
+                                                            'score_front_end': profile.score_front_end,
+                                                            'score_back_end': profile.score_back_end,
+                                                            'score_quality_assurance': profile.score_quality_assurance,
+                                                            'score_business_analysis': profile.score_business_analysis,
+                                                            'score_database': profile.score_database,
                                                             'score_total': profile.score_total,
                                                             'pic_path': profile.pic_path,
                                                             'gpa' : profile.gpa
@@ -124,37 +115,32 @@ def upload_file_cv(request):
             #     pro_url = 'https://'+pro_url
             print("linked in url refactored is - " + pro_url)
             get_linkedin_profile(pro_url)
-            scrape_linkedin(pro_url)
-            print('DATA COLLECTION IS OVER !!!!!!!!!!!!!!!!!!!!!!!!')
-            obj = resume.save(commit=False)
-            obj.score = score_value
-            obj.link_url = pro_url
-            obj.gpa = gpa_value
-
-            # 'score_software': str((int(importScoreDataLinkedIn()[1]) + int(
-            #     importScoreData()[0])) / 2)[:-2],
-
-            obj.name = importPersonalDataLinkedIn()[0]
-            obj.occupation = importPersonalDataLinkedIn()[1]
-            obj.summary = importPersonalDataLinkedIn()[2]
-            obj.skills = importPersonalDataLinkedIn()[3]
-            obj.experience = importPersonalDataLinkedIn()[4]
-            obj.courses = importPersonalDataLinkedIn()[5]
-            obj.organizations = importPersonalDataLinkedIn()[6]
-            obj.projects = json.dumps(importProjectDataLinkedIn())
-            obj.skills_endoresed = json.dumps(importSkillsLinkedIn())
-            obj.score_endoresed = int(import_endoresed_data()[0])
-            obj.score_programming = int(importScoreDataLinkedIn()[0])
-            obj.score_software = int(importScoreDataLinkedIn()[1])
-            obj.score_engineering = int(importScoreDataLinkedIn()[2])
-            obj.score_finance = int(importScoreDataLinkedIn()[3])
-            obj.score_management = int(importScoreDataLinkedIn()[4])
-            obj.score_art = int(importScoreDataLinkedIn()[5])
-            obj.score_total = get_total_score(score_value, gpa_value)
-            obj.pic_path = "static/images/profile_pictures/" + pro_url[27:] + ".png"
-            obj.save()
-            # print(UploadCV.objects.all())
-            return HttpResponseRedirect(reverse('cv_upload'))
+            if scrape_linkedin(pro_url):
+                print('DATA COLLECTION IS OVER !!!!!!!!!!!!!!!!!!!!!!!!')
+                obj = resume.save(commit=False)
+                obj.score = score_value
+                obj.link_url = pro_url
+                obj.gpa = gpa_value
+                obj.name = importPersonalDataLinkedIn()[0]
+                obj.occupation = importPersonalDataLinkedIn()[1]
+                obj.summary = importPersonalDataLinkedIn()[2]
+                obj.skills = importPersonalDataLinkedIn()[3]
+                obj.experience = importPersonalDataLinkedIn()[4]
+                obj.courses = importPersonalDataLinkedIn()[5]
+                obj.organizations = importPersonalDataLinkedIn()[6]
+                obj.projects = json.dumps(importProjectDataLinkedIn())
+                obj.skills_endoresed = json.dumps(importSkillsLinkedIn())
+                obj.score_endoresed = int(import_endoresed_data()[0])
+                obj.score_front_end = int(importScoreDataLinkedIn()[0])
+                obj.score_back_end = int(importScoreDataLinkedIn()[1])
+                obj.score_quality_assurance = int(importScoreDataLinkedIn()[2])
+                obj.score_business_analysis = int(importScoreDataLinkedIn()[3])
+                obj.score_database = int(importScoreDataLinkedIn()[4])
+                obj.score_total = get_total_score(score_value, gpa_value)
+                obj.pic_path = "static/images/profile_pictures/" + pro_url[27:] + ".png"
+                obj.save()
+                # print(UploadCV.objects.all())
+                return HttpResponseRedirect(reverse('cv_upload'))
     else:
         resume = UploadFormCV()
     resumes = UploadCV.objects.all()
@@ -192,9 +178,9 @@ def analysis(request):
 
 
 def get_total_score(score,gpa):
-    model_score = score/int(import_word_count()[0])*50
+    model_score = score/int(import_word_count()[0])*35
     endoresement_score = int(import_endoresed_data()[0])/100*10
-    section_score = int(importScoreDataLinkedIn()[6])/100*20
+    section_score = int(importScoreDataLinkedIn()[5])/100*35
     gpa_score = gpa/4.2*20
     print('model score is ' + str(model_score))
     print('endorsement score is ' + str(endoresement_score))

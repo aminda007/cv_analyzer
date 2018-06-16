@@ -1,46 +1,67 @@
 import csv
+from .models import Skills
 
-def read_csv(file_name):
-    with open('cv_analyzer/static/csv_data/'+file_name+'.csv', 'r') as csv_file:
-        csv_reader = csv.reader(csv_file)
-        for line in csv_reader:
-            return line[0]
 
-def get_score(word_list, db_list, special_words):
-    word_list = list(set(word_list))
-    score = 0
+# return a score according to the given priority
+def get_score(skill_priority):
+    if skill_priority == 'High':
+        return 30
+    elif skill_priority == 'Medium':
+        return 20
+    else:
+        return 10
+
+
+# get the total scores from given skills for model for each section
+def get_total_section_score(category):
+    skills = Skills.objects.filter(category=category)
+    total_score = 0
+    for item in skills:
+        score = get_score(item.priority)
+        total_score = total_score + score
+    print(category+str(total_score))
+    return total_score
+
+
+def write_total_score(lists):
+
+    score_front_end = 0
+    score_back_end = 0
+    score_quality_assurance = 0
+    score_business_analysis = 0
+    score_database = 0
+
+    # remove duplicates from word list
+    word_list = list(set(lists))
+    # iterate through word list and give a score to each section for the uploaded resume
     for item in word_list:
-        if item in special_words:
-            score += 2
-        elif item in db_list:
-            score += 1
-    word_tokens = db_list.split()
-    max_score = min(int(score/len(word_tokens)*100), 100)
-    return max_score
+        skills = Skills.objects.filter(skill=item)
+        if len(skills) > 0:
+            skill = skills[0]
+            skill_priority = skill.priority
+            skill_category = skill.category
+            if skill_category == 'Front-end':
+                score_front_end = score_front_end + get_score(skill_priority)
+            elif skill_category == 'Back-end':
+                score_back_end = score_back_end + get_score(skill_priority)
+            elif skill_category == 'Quality Assurance':
+                score_quality_assurance = score_quality_assurance + get_score(skill_priority)
+            elif skill_category == 'Business Analysis':
+                score_business_analysis = score_business_analysis + get_score(skill_priority)
+            else:
+                score_database = score_database + get_score(skill_priority)
 
-def write_total_score(word_list, filename,
-                      programming_special_words='xxxx', software_special_words='xxxx',
-                      engineering_special_words='xxxx', finance_special_words='xxxx',
-                      management_special_words='xxxx', art_special_words='xxxx',):
+    # get the total scores from given skills for model for each section as a percentage
+    scores_front_end = int((score_front_end / get_total_section_score('Front-end'))*100)
+    scores_back_end = int((score_back_end / get_total_section_score('Back-end'))*100)
+    scores_quality_assurance = int((score_quality_assurance / get_total_section_score('Quality Assurance'))*100)
+    scores_business_analysis = int((score_business_analysis / get_total_section_score('Business Analysis'))*100)
+    scores_database = int((score_database / get_total_section_score('Database'))*100)
 
-    db_programming = read_csv('db_programming')
-    db_software = read_csv('db_software')
-    db_engineering = read_csv('db_engineering')
-    db_finance = read_csv('db_finance')
-    db_management = read_csv('db_management')
-    db_art = read_csv('db_art')
+    # total score get by average of section scores
+    score_total = int((scores_front_end + scores_back_end + scores_quality_assurance + scores_business_analysis + scores_database) / 5)
 
-    score_programming = get_score(word_list, db_programming, programming_special_words)
-    score_software = get_score(word_list, db_software, software_special_words)
-    score_engineering = get_score(word_list, db_engineering, engineering_special_words)
-    score_finance = get_score(word_list, db_finance, finance_special_words)
-    score_management = get_score(word_list, db_management, management_special_words)
-    score_art = get_score(word_list, db_art, art_special_words)
-
-    score_total = int((score_programming+score_software+score_engineering+score_finance+score_management+score_art)/6)
-
-    with open('cv_analyzer/static/csv_data/'+filename+'.csv', 'w') as csv_file:
+    with open('cv_analyzer/static/csv_data/link_score.csv', 'w') as csv_file:
         csv_writer = csv.writer(csv_file, delimiter=',')
-        csv_writer.writerow([score_programming, score_software, score_engineering, score_finance, score_management, score_art, score_total])
-
-# write_total_score(["java", "emacs", "lisp", "go!"], "java")
+        csv_writer.writerow([scores_front_end, scores_back_end, scores_quality_assurance, scores_business_analysis, scores_database, score_total])
+        print("section score writing fnished...")

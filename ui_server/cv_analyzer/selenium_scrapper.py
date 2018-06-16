@@ -14,6 +14,14 @@ from .scoring_template import write_total_score
 
 def scrape_linkedin(pro_url):
 
+    # pro_url= 'https://www.linkedin.com/in/manura-jithmal-de-silva-988b385b/'
+    # pro_url= 'https://www.linkedin.com/in/aminda-abeywardana-6aa8b845/'
+    # pro_url= 'https://www.linkedin.com/in/chamodsamarajeewa/'
+    # pro_url= 'https://www.linkedin.com/in/shatheesh-sohan-b9a0b4b8/'
+    # pro_url= 'https://www.linkedin.com/in/mihiran-rajapaksha/'
+    # pro_url= 'https://www.linkedin.com/in/ksuthagar/'
+    # pro_url= 'https://www.linkedin.com/in/anuradha-sithuruwan-a971b7126/'
+
     chrome_options = Options()
     # chrome_options.add_argument("--headless")
 
@@ -76,4 +84,6 @@ def scrape_linkedin(pro_url):
     writeSkillsLinkedIn(newSkills)
     write_endoresed_data(endoresed_marks)
     updata_all_data(scrapped_data)
-    write_total_score(import_all_data().split(), 'link_score')
+    write_total_score(import_all_data().lower().split())
+
+    return True

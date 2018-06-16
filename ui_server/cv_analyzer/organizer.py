@@ -14,7 +14,7 @@ def organize():
 
     file = open('cv_analyzer/cv.txt', 'r')
     text_input  = file.read()
-    write_total_score(text_input.split(),'score')
+    # write_total_score(text_input.split(),'score')
     file.close()
 
     html = open('cv_analyzer/cv.txt', 'rb', buffering=1).read(1000000)

@@ -5,8 +5,8 @@ Extract data from cv in pdf format
 install pdfminer for python3 ----> pip install pdfminer.six
 
 Run ui server --> cd ui_server
-              --> manage.py makemigrations
-              --> manage.py migrate
+              --> python manage.py makemigrations
+              --> python manage.py migrate
               --> python manage.py runserver
 
 **********************************************************************
