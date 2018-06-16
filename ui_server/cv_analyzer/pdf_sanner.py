@@ -14,11 +14,9 @@ from .organizer import organize
 
 
 def scanPdf():
+
     # Open a PDF file.
-    # fp = open('cv.pdf', 'rb')
     fp = open('cv_analyzer/cvc.pdf', 'rb')
-    # fp = open('CV Chanuka Lihini.pdf', 'rb')
-    # fp = open('Chamod_Samarajeewa__CV.pdf', 'rb')
 
     # Create a PDF parser object associated with the file object.
     parser = PDFParser(fp)

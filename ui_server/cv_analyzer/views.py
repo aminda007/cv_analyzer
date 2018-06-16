@@ -17,25 +17,6 @@ import json
 
 # Create your views here.
 
-
-def cvTemplate(request):
-    scanPdf()
-    return TemplateResponse(request, 'TemplateCVAnalyzer.html', {'name': importPersonalData()[0],
-                                                        'email': importPersonalData()[1],
-                                                        'linkedin': importPersonalData()[2],
-                                                        'projects': importProjectData(),
-                                                        'skills': importSkillsData(),
-                                                        'score_programming': importScoreData()[0],
-                                                        # 'score_software': importScoreData()[1],
-                                                        'score_software': str((int(importScoreData()[1])+int(importScoreData()[0]))/2)[:-2],
-                                                        'score_engineering': importScoreData()[2],
-                                                        'score_finance': importScoreData()[3],
-                                                        'score_management': importScoreData()[4],
-                                                        'score_art': importScoreData()[5],
-                                                        'score_total': importScoreData()[6],
-                                                        })
-
-
 def cvLinkedIn(request):
 
     if request.method == "POST":
@@ -254,13 +235,12 @@ def add_skill(request):
         if len(obj_list) > 0:
             print("do nothing")
         else:
-            s = Skills(skill=skill, category=category, priority=priority, priority_class=priority_class)
-            s.save()
+            if skill != '':
+                s = Skills(skill=skill.lower(), category=category, priority=priority, priority_class=priority_class)
+                s.save()
         return HttpResponseRedirect(reverse('skills_add'))
     else:
-        resume = UploadFormCV()
-    resumes = UploadCV.objects.all()
-    return TemplateResponse(request, 'UploadCV.html', {'form': resume, 'resumes': resumes})
+        return HttpResponseRedirect(reverse('skills_add'))
 
 
 def delete_skill(request):

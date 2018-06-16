@@ -29,7 +29,7 @@ urlpatterns = [
     path(r'', views.LoginPageView.as_view()),
     path(r'dashboard', views.DashboardView.as_view()),
     path(r'home', views.home),
-    path(r'cv-template', views.cvTemplate),
+    # path(r'cv-template', views.cvTemplate),
     path(r'cv-linkedin', views.cvLinkedIn, name='cv_linked_in'),
     # path(r'upload', views.upload_file),
     path(r'delete', views.delete_file, name='resume_delete'),

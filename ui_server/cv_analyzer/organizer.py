@@ -7,16 +7,6 @@ from .export_data import *
 from .scoring_template import write_total_score
 
 def organize():
-    # html = open('cv.txt', 'rb', buffering=1).read(1000000)
-    # with open('cv.txt','r') as content:
-    #     html = content.read()
-    # html = open('cv.txt', 'rt', encoding='utf-8')
-    # html = open('cv.txt', 'rb')
-    # html = open('cv.txt','r').readlines()
-    # for line in html:
-    #     print (line)
-    # html.close()
-    # html = Path('cv.txt').read_text()
 
     file = open('cv_analyzer/cv.txt', 'at')
     file.write('afdsghjgfdsafghjkhgfdsfghj')
@@ -28,15 +18,12 @@ def organize():
     file.close()
 
     html = open('cv_analyzer/cv.txt', 'rb', buffering=1).read(1000000)
-    # print(html)
     soup = BeautifulSoup(html, 'html.parser')
-    # print("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS\n"+str(soup))
     div = soup.find_all('span', style=True)
-    # print("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD\n"+str(div))
+
     font_array = []
     line_array = []
     for data in div:
-        # print('data is' + str(data))
         style_set = data["style"]
         if 'font' in style_set:
             font_size = style_set.split(':')[-1].replace('px', '')
@@ -48,16 +35,14 @@ def organize():
                     line['font'] = font_size
                     line['text'] = ln.strip()
                     line_array.append(line)
-                    # print(line)
             font_array.append(font_size)
 
-    # print(font_array)
+
     # convert string array into int array
     font_array_int = []
     for i in font_array:
         i = int(i)
         font_array_int.append(i)
-    # print(font_array_int)
 
     # find font size of body using sort
     sorted_font_array = sorted(font_array_int, key = font_array_int.count)
