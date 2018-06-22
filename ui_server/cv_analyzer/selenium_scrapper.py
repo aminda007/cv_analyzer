@@ -14,14 +14,6 @@ from .scoring_template import write_total_score
 
 def scrape_linkedin(pro_url):
 
-    # pro_url= 'https://www.linkedin.com/in/manura-jithmal-de-silva-988b385b/'
-    # pro_url= 'https://www.linkedin.com/in/aminda-abeywardana-6aa8b845/'
-    # pro_url= 'https://www.linkedin.com/in/chamodsamarajeewa/'
-    # pro_url= 'https://www.linkedin.com/in/shatheesh-sohan-b9a0b4b8/'
-    # pro_url= 'https://www.linkedin.com/in/mihiran-rajapaksha/'
-    # pro_url= 'https://www.linkedin.com/in/ksuthagar/'
-    # pro_url= 'https://www.linkedin.com/in/anuradha-sithuruwan-a971b7126/'
-
     chrome_options = Options()
     # chrome_options.add_argument("--headless")
 
@@ -42,30 +34,27 @@ def scrape_linkedin(pro_url):
     time.sleep(5)
     driver.find_element_by_class_name('pv-skills-section__additional-skills').click()
     time.sleep(1)
-    # driver.execute_script("window.scrollTo(0, document.body.scrollHeight)");
-    # classes = div.find_elements_by_xpath("//*[@class]")
-    # skills = driver.find_elements_by_xpath("//*[contains(@class, 'Sans-17px-black-100%-semibold')]")
 
     # getting skills and endorsements
     skills_div = driver.find_element_by_id("skill-categories-expanded")
     skills = skills_div.find_elements_by_xpath("//*[contains(@class, 'Sans-17px-black-100%-semibold') or contains(@class, 'pv-skill-category-entity__endorsement-count Sans-15px-black-70%')]")
     try:
-        # pro_pic = driver.find_element_by_xpath("//*[contains(@class, 'pv-top-card-section__photo presence-entity__image EntityPhoto-circle-8 ember-view')]")
         pro_pic = driver.find_element_by_xpath("//*[contains(@class, 'pv-top-card-section__photo presence-entity__image EntityPhoto-circle-9 ember-view')]")
         pro_pic_src = pro_pic.get_attribute("style")
         pro_pic_src_splitted = pro_pic_src.split('"')
         pro_pic_src_refined = pro_pic_src_splitted[1]
-        # print(pro_pic_src_refined+" pro_urls")
         urllib.request.urlretrieve(pro_pic_src_refined, "cv_analyzer/static/images/profile_pictures"+pro_url[27:]+".png")
     except:
         urllib.request.urlretrieve("http://www.davidniklasson.com/in.png", "cv_analyzer/static/images/profile_pictures"+ pro_url[27:]+".png")
         print("no pro pic found")
     # driver.close()
+
     newSkills = []
     skill_ok = 0
     skill_line = ''
     scrapped_data = ''
     total_endoresed = 0
+
     for skill in skills:
         if 'Sans-17px-black-100%-semibold' in skill.get_attribute("class"):
             skill_ok += 1
@@ -78,8 +67,7 @@ def scrape_linkedin(pro_url):
         if 'pv-skill-category-entity__endorsement-count Sans-15px-black-70%' in skill.get_attribute("class"):
             skill_line += skill.text
             total_endoresed += int(skill.text)
-    # for i in newSkills:
-        # print(i)
+
     endoresed_marks = min(max(int(total_endoresed/250*100), 20), 100)
     writeSkillsLinkedIn(newSkills)
     write_endoresed_data(endoresed_marks)

@@ -15,6 +15,7 @@ from nltk.stem import WordNetLemmatizer
 from bs4 import BeautifulSoup
 import re
 from .models import Words
+from .model_checker import ModelChecker
 
 
 def score_resume(fp):
@@ -118,20 +119,32 @@ def score_resume(fp):
                                     gpa = word
                                     gpa_found = False
     print('gpa is ' + gpa)
-    # print('linkedin url is ' + linked_in_url)
 
-    score = 0;
+    score = 0
+    model_text = ''
+    for w in Words.objects.all():
+        word = ''
+        # print(w)
+        print(w.count)
+        for x in range(w.count):
+            print(w.word)
+            word = word + ' ' + w.word
+        model_text = model_text + word.strip() + ' '
+    print("000000000000000000000000000000000000000000000000000000000000000000000000000000000" + model_text)
+    resume_text = ''
     for item in filtered_words:
-        # print(item)
+        resume_text = resume_text + item + ' '
         obj_list = Words.objects.filter(word=item)
         if len(obj_list) > 0:
             w_model = obj_list[0]
             w_model_count = w_model.count
             score = w_model_count + score
-    # print(Words.objects.all())
+    print("1111111111111111111111111111111111111111111111"+resume_text)
+
+    checker = ModelChecker()
 
     if gpa == '':
         gpa = 2.0
 
-    print('model score is ' + str(score))
-    return linked_in_url, score, float(gpa)
+    # print('model score is ' + str(score))
+    return linked_in_url, checker.get_score(model_text, resume_text), float(gpa)

@@ -139,7 +139,6 @@ def upload_file_cv(request):
                 obj.score_total = get_total_score(score_value, gpa_value)
                 obj.pic_path = "static/images/profile_pictures/" + pro_url[27:] + ".png"
                 obj.save()
-                # print(UploadCV.objects.all())
                 return HttpResponseRedirect(reverse('cv_upload'))
     else:
         resume = UploadFormCV()
@@ -177,11 +176,11 @@ def analysis(request):
     return TemplateResponse(request, 'Analysis.html', {'resumes': resumes})
 
 
-def get_total_score(score,gpa):
-    model_score = score/int(import_word_count()[0])*35
+def get_total_score(score, gpa):
+    model_score = score*50
     endoresement_score = int(import_endoresed_data()[0])/100*10
-    section_score = int(importScoreDataLinkedIn()[5])/100*35
-    gpa_score = gpa/4.2*20
+    section_score = int(importScoreDataLinkedIn()[5])/100*30
+    gpa_score = gpa/4.2*10
     print('model score is ' + str(model_score))
     print('endorsement score is ' + str(endoresement_score))
     print('section score is ' + str(section_score))
@@ -212,6 +211,8 @@ def add_skill(request):
 
         priority_class = ""
         if priority == "High":
+            priority_class = "badge bgc-red-50 c-red-700 p-10 lh-0 tt-c badge-pill"
+        if priority == "Very High":
             priority_class = "badge bgc-red-50 c-red-700 p-10 lh-0 tt-c badge-pill"
         elif priority == "Medium":
             priority_class = "badge bgc-green-50 c-green-700 p-10 lh-0 tt-c badge-pill"

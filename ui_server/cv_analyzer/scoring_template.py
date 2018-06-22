@@ -6,8 +6,12 @@ from .models import Skills
 def get_score(skill_priority):
     if skill_priority == 'High':
         return 30
+    elif skill_priority == 'Very High':
+        return 25
     elif skill_priority == 'Medium':
         return 20
+    elif skill_priority == 'Very Low':
+        return 15
     else:
         return 10
 
@@ -64,4 +68,4 @@ def write_total_score(lists):
     with open('cv_analyzer/static/csv_data/link_score.csv', 'w') as csv_file:
         csv_writer = csv.writer(csv_file, delimiter=',')
         csv_writer.writerow([scores_front_end, scores_back_end, scores_quality_assurance, scores_business_analysis, scores_database, score_total])
-        print("section score writing fnished...")
+        print("section score writing finished...")
