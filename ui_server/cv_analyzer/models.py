@@ -44,6 +44,7 @@ class UploadCV(models.Model):
     score_quality_assurance = models.IntegerField()
     score_business_analysis = models.IntegerField()
     score_database = models.IntegerField()
+    score_education = models.IntegerField()
     score_total = models.IntegerField()
     pic_path = models.CharField(max_length=100)
 

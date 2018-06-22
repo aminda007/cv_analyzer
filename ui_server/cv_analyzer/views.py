@@ -93,6 +93,20 @@ def home(request):
     return TemplateResponse(request, 'Home.html')
 
 
+def get_edu_score():
+    edu = importPersonalDataLinkedIn()[5].strip().lower()
+    print(edu)
+    if edu in "doctor":
+        edu_score = 10
+    elif edu in "master":
+        edu_score = 8
+    elif edu in "bachelor":
+        edu_score = 6
+    else:
+        edu_score = 2
+    return edu_score
+
+
 def upload_file_cv(request):
     if request.method == "POST":
         resume = UploadFormCV(request.POST, request.FILES)
@@ -127,7 +141,8 @@ def upload_file_cv(request):
                 obj.score_quality_assurance = int(importScoreDataLinkedIn()[2])
                 obj.score_business_analysis = int(importScoreDataLinkedIn()[3])
                 obj.score_database = int(importScoreDataLinkedIn()[4])
-                obj.score_total = get_total_score(score_value, gpa_value)
+                obj.score_education = get_edu_score()
+                obj.score_total = get_total_score(score_value, gpa_value, obj.score_education)
                 obj.pic_path = "static/images/profile_pictures/" + pro_url[27:] + ".png"
                 obj.save()
                 return HttpResponseRedirect(reverse('cv_upload'))
@@ -163,17 +178,19 @@ def analysis(request):
     return TemplateResponse(request, 'Analysis.html', {'resumes': resumes})
 
 
-def get_total_score(score, gpa):
+def get_total_score(score, gpa, edu_score):
     model_score = score*50
     endoresement_score = int(import_endoresed_data()[0])/100*10
     section_score = int(importScoreDataLinkedIn()[5])/100*30
     gpa_score = gpa/4.2*10
+    edu_score = min(edu_score, 35)/35*10
     print('model score is ' + str(model_score))
     print('endorsement score is ' + str(endoresement_score))
     print('section score is ' + str(section_score))
     print('gpa score is ' + str(gpa_score))
-    print('total score is ' + str(model_score+endoresement_score+section_score+gpa_score))
-    return int(model_score+endoresement_score+section_score+gpa_score)
+    print('education score is ' + str(edu_score))
+    print('total score is ' + str(model_score+endoresement_score+section_score+gpa_score+edu_score))
+    return int(model_score+endoresement_score+section_score+gpa_score+edu_score)
 
 
 def add_skills(request):
