@@ -13,56 +13,6 @@ def writePersonalInfoLinkedIn(name, occupation, summary, skills, experience, cou
         csv_writer.writerow([name, occupation, summary, skills, experience, courses, organizations])
 
 
-def getWordList(data):
-    data = data.rstrip()
-    data = data.lstrip()
-    words = data.split(' ')
-    catogary = words[0]
-    # print(words)
-    words1 = ''
-    for i in words:
-        if (',' in i):
-            words1 += i
-    words1 = words1 + words[-1]
-    # print(words1)
-    wordList = words1.split(',')
-    # print(wordList)
-    return wordList
-
-
-def writeProjects(data):
-    with open('cv_analyzer/static/csv_data/projects.csv', 'w', newline='') as csv_file:
-        csv_writer = csv.writer(csv_file, delimiter='<')
-        data = data.lstrip()
-        projects = data.split('@#')
-
-        for project in projects:
-            # print('111111111111111111111111111111111111111111111111111111111111111\n')
-            # print(project)
-            lines = project.split('\n')
-            pname = ''
-            lineSet = ''
-            for line in lines:
-                if '---' in line:
-                    pname = line
-                elif '--' in line:
-                    lineSet += line
-            lineSet = lineSet.lstrip()
-            lineSet = lineSet.split('--')
-            newLineSet = ''
-            for line in lineSet:
-                line = line.lstrip()
-                line = line.rstrip()
-                if line != '':
-                    newLineSet += '^'
-                    newLineSet += line
-            if pname != '':
-                if len(newLineSet) != 0:
-                    # csv_writer.writerow(["svgf", ['xas', 'xsa', 'xsasa']])
-                    csv_writer.writerow([pname[3:], newLineSet])
-                    # print('pname is--------------------------------'+pname)
-
-
 def writeProjectsLinkedIn(data):
     with open('cv_analyzer/static/csv_data/link_projects.csv', 'w', newline='') as csv_file:
         csv_writer = csv.writer(csv_file, delimiter='<')
@@ -70,8 +20,6 @@ def writeProjectsLinkedIn(data):
         projects = data.split('@#')
 
         for project in projects:
-            # print('111111111111111111111111111111111111111111111111111111111111111\n')
-            # print(project)
             lines = project.split('\n')
             pname = ''
             lineSet = ''
@@ -95,39 +43,7 @@ def writeProjectsLinkedIn(data):
                     newLineSet += line
             if pname != '':
                 if len(newLineSet) != 0:
-                    # csv_writer.writerow(["svgf", ['xas', 'xsa', 'xsasa']])
                     csv_writer.writerow([pname[3:], newLineSet])
-                    # print('pname is--------------------------------'+pname)
-
-
-def write_skills(data):
-    with open('cv_analyzer/static/csv_data/skills.csv', 'w', newline='') as csv_file:
-        csv_writer = csv.writer(csv_file, delimiter=',')
-        data = data.split('\n')
-        for line in data:
-            if len(line) > 2:
-                csv_writer.writerow(getSkillList(line))
-
-
-def getSkillList(data):
-    data = data.rstrip()
-    data = data.lstrip()
-    words = data.split(' ')
-    catogary = words[0]
-    # print(words)
-    words1 = ''
-    for i in words:
-        if (',' in i):
-            words1 += i
-    words1 = words1 + words[-1]
-    # print(words1)
-    wordList = words1.split(',')
-    newLineSet = ''
-    for line in wordList:
-        newLineSet += '^'
-        newLineSet += line
-    # print(wordList)
-    return [catogary[2:], newLineSet]
 
 
 def writeSkillsLinkedIn(data):

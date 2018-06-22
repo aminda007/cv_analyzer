@@ -7,12 +7,7 @@ class Extractor:
 
     def extract_info(self, data):
 
-        # intro = data['included'][-1]
         included = data['included']
-        # print(intro)
-        # print(data)
-        # print(included)
-
         firstName = ''
         lastName = ''
         occupation = ''
@@ -34,27 +29,20 @@ class Extractor:
                 occupation = i['headline']
                 summary = i['summary']
             elif 'name' in keys:
-                # print(i)
-                # print(index)
                 if (len(i) == 9):
-                    # print(i)
-                    # print(i['name'] + 'company**************************')
                     experience.append(i['name'])
                 if (len(i) == 4):
                     if (i['$type'] == 'com.linkedin.voyager.identity.profile.Skill' ):
-                        # print(i)
                         skills.append(i['name'])
                 if (len(i) == 6):
                     courses.append(i['name'])
                 if (len(i) == 8):
-                    # print(i)
                     organization_name.append(i['name'])
                     if 'description' in keys:
                         organization_discription.append(i['description'])
                     else:
                         organization_discription.append('')
             elif 'members' in keys:
-                # print(i)
                 project_name.append(i['title'])
                 if 'description' in keys:
                     project_discription.append(i['description'])

@@ -4,7 +4,6 @@ from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.template.response import TemplateResponse
 from .import_data import *
-from .pdf_sanner import scanPdf
 from .init import get_linkedin_profile
 from .selenium_scrapper import scrape_linkedin
 from django.http import HttpResponseRedirect
@@ -15,8 +14,8 @@ from .model_creater import update_model
 from .model_scorer import score_resume
 import json
 
-# Create your views here.
 
+# show the summary of resume profile with scrapped linked in data
 def cvLinkedIn(request):
 
     if request.method == "POST":
@@ -70,15 +69,10 @@ def upload_file(request):
 
 
 def delete_file(request):
-    # if request.method != 'POST':
-    #     raise HTTP404
     if request.method == "POST":
         docId = request.POST.get('docfile', None)
-        # print("docid "+docId)
         docToDel = get_object_or_404(Upload, pk=docId)
-        # print("deleted_id "+docToDel.resume.url)
         docToDel.resume.delete()
-        # print()
         docToDel.delete()
         return HttpResponseRedirect(reverse('resume_upload'))
     else:
@@ -105,14 +99,11 @@ def upload_file_cv(request):
         if resume.is_valid():
             file = resume.cleaned_data.get('resume_do')
             linked_in, score_value, gpa_value = score_resume(file.file)
-            # print("linked in url in cv is - " + linked_in)
             pro_url_splitted = linked_in.split('/')
             if (len(pro_url_splitted[-1]) > 5):
                 pro_url = 'https://www.linkedin.com/in/' + pro_url_splitted[-1]
             else:
                 pro_url = 'https://www.linkedin.com/in/' + pro_url_splitted[-2]
-            # if 'http' not in pro_url:
-            #     pro_url = 'https://'+pro_url
             print("linked in url refactored is - " + pro_url)
             get_linkedin_profile(pro_url)
             if scrape_linkedin(pro_url):
@@ -142,18 +133,15 @@ def upload_file_cv(request):
                 return HttpResponseRedirect(reverse('cv_upload'))
     else:
         resume = UploadFormCV()
+
     resumes = UploadCV.objects.all()
-    # resumes = UploadCV.objects.order_by('-upload_date')
-    # print(UploadCV.objects.all())
     return TemplateResponse(request, 'UploadCV.html', {'form': resume, 'resumes': resumes})
 
 
 def delete_file_cv(request):
     if request.method == "POST":
         docId = request.POST.get('docfile', None)
-        # print("docid "+docId)
         docToDel = get_object_or_404(UploadCV, pk=docId)
-        # print("deleted_id "+docToDel.resume_do.url)
         docToDel.resume_do.delete()
         docToDel.delete()
         return HttpResponseRedirect(reverse('cv_upload'))
@@ -166,7 +154,6 @@ def delete_file_cv(request):
 def delete_all_cv(request):
     for docToDel in UploadCV.objects.all():
         docToDel.resume_do.delete()
-        # docToDel.delete()
     UploadCV.objects.all().delete()
     return HttpResponseRedirect(reverse('cv_upload'))
 

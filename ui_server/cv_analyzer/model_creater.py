@@ -51,7 +51,6 @@ def update_model(fp):
     imagewriter = ImageWriter('image.jpg')
     outfp = open('cv_analyzer/resume.txt', 'wb')
 
-    # device = TextConverter(rsrcmgr, outfp, imagewriter=imagewriter, codec=codec)
     device = HTMLConverter(rsrcmgr,
                            outfp,
                            codec=codec,
@@ -75,11 +74,6 @@ def update_model(fp):
 
     device.close()
     outfp.close()
-    #
-    # file = open('cv_analyzer/resume.txt', 'a')
-    # file.write('.')
-    # file.close()
-
     read_model()
 
 
@@ -129,13 +123,8 @@ def read_model():
 
 def save_model(word_list):
 
-    # print(Words.objects.all())
-
-    # word_list=['abc','abcd','edg','uvi']
-
     for item in word_list:
         obj_list = Words.objects.filter(word=item)
-        # print(item)
         if len(obj_list) > 0:
             w_existing = obj_list[0]
             w_existing_count = w_existing.count
@@ -144,7 +133,6 @@ def save_model(word_list):
         else:
             w = Words(word=item, count=1)
             w.save()
-    # print(Words.objects.all())
     ordered_word_list = Words.objects.order_by('-count')
 
     total_word_count = 0

@@ -50,7 +50,6 @@ def score_resume(fp):
     imagewriter = ImageWriter('image.jpg')
     outfp = open('cv_analyzer/resume.txt', 'wb')
 
-    # device = TextConverter(rsrcmgr, outfp, imagewriter=imagewriter, codec=codec)
     device = HTMLConverter(rsrcmgr,
                            outfp,
                            codec=codec,
@@ -68,7 +67,6 @@ def score_resume(fp):
 
     # loop over all pages in the document
     for page in PDFPage.create_pages(document):
-
         # convert the pdf pages into html format
         interpreter.process_page(page)
 
@@ -124,13 +122,12 @@ def score_resume(fp):
     model_text = ''
     for w in Words.objects.all():
         word = ''
-        # print(w)
         print(w.count)
         for x in range(w.count):
             print(w.word)
             word = word + ' ' + w.word
         model_text = model_text + word.strip() + ' '
-    print("000000000000000000000000000000000000000000000000000000000000000000000000000000000" + model_text)
+
     resume_text = ''
     for item in filtered_words:
         resume_text = resume_text + item + ' '
@@ -139,12 +136,10 @@ def score_resume(fp):
             w_model = obj_list[0]
             w_model_count = w_model.count
             score = w_model_count + score
-    print("1111111111111111111111111111111111111111111111"+resume_text)
 
     checker = ModelChecker()
 
     if gpa == '':
         gpa = 2.0
 
-    # print('model score is ' + str(score))
     return linked_in_url, checker.get_score(model_text, resume_text), float(gpa)
