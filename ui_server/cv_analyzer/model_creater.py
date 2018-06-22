@@ -89,6 +89,7 @@ def read_model():
     gpa_found = False
     c_found = False
     gpa = ''
+    linked_in_url = ''
     for data in div:
         style_set = data["style"]
         if 'font' in style_set:
@@ -96,9 +97,13 @@ def read_model():
             for ln in lines:
                 if ln != '':
                     #  replace unwanted characters
-                    ln = ln.replace('(', ' ').replace(')', ' ').replace('/', ' ').replace(',', ' ').replace('-', '')
+                    ln = ln.replace('(', ' ').replace(')', ' ').replace(',', ' ')
                     words = ln.strip().split()
                     for word in words:
+                        # extract linkedin url
+                        if 'linked' in word:
+                            linked_in_url = word
+                        word = word.replace('-', '')
                         word = re.sub(r'(?<!\d)\.(?!\d)', '', word)  # remove pull stops
                         #  the only word with one letter is C
                         if not c_found:
@@ -114,7 +119,7 @@ def read_model():
                                     gpa_found = True
                                 filtered_words.append(lemmatizer.lemmatize(word, pos="n"))
                             else:
-                                if gpa_found and not bool(re.search('[a-zA-Z]', word)):
+                                if gpa_found and not bool(re.search('[a-zA-Z]', word)) and len(word) > 2:
                                     gpa = word
                                     gpa_found = False
     print('gpa is ' + gpa)
