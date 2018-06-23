@@ -1,0 +1,55 @@
+{% extends "Dashboard.html" %}
+{% block title %}Dataset Preview{% endblock %}
+{% block body %}
+
+    <div class="masonry-item col-md-12" style="position: absolute; left: 50%; top: 0px;">
+        <div style="margin-left:10px;" class="bgc-white p-20 bd" ><h6 class="c-grey-900">Question and Answering</h6>
+            <!--<div class="bd bgc-white" style="margin-left:10px;">-->
+                <!--<div class="layers">-->
+                    <!--<div class="layer w-100">-->
+                        <!--<div class="table-responsive p-20" style="margin:10px;">-->
+                            <!--<table class="table">-->
+                                <!--<thead>-->
+                                <!--<tr>-->
+                                    <!--<th class="bdwT-0">Context</th>-->
+                                    <!--<th class="bdwT-0">Question</th>-->
+                                    <!--<th class="bdwT-0">Answer</th>-->
+                                <!--</tr>-->
+                                <!--</thead>-->
+                                <!--<tbody>-->
+                                <!--{% for qaitems in qalist %}-->
+                                    <!--<tr>-->
+                                        <!--{% for qa_context in  qaitems %}-->
+                                            <!--<td class="fw-600">{{ qa_context }}</td>-->
+                                            <!--{% for quest,ans in  p_lines %}-->
+                                            <!--<td>-->
+                                                <!--{% for x in  quest %}-->
+                                                <!--<td>-->
+                                                <!--<span class="fsz-sm c-grey-800">{{x}}</span><br>-->
+                                                <!--</td>-->
+                                                <!--{% endfor %}-->
+                                            <!--</td>-->
+                                            <!--{% endfor %}-->
+                                        <!--{% endfor %}-->
+                                    <!--</tr>-->
+
+                                <!--{% endfor %}-->
+                                <!--</tbody>-->
+                            <!--</table>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            {% for qaitems in qalist %}
+                {% for context,arraylist in qalist %}
+                    <p>{{context}}</p>
+                    {% for aaa,bbb in arraylist %}
+                        <p><a href="/qa?question={{ aaa }}&question_context={{ context }}&true_answer={{ bbb }}">{{aaa}}</a></p>
+                        <p>{{bbb}}</p>
+                    {% endfor %}
+                {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

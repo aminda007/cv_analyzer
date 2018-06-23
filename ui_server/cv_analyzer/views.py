@@ -3,17 +3,20 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.template.response import TemplateResponse
+
+from .app_variables import AppVariables
 from .import_data import *
 from .init import get_linkedin_profile
 from .selenium_scrapper import scrape_linkedin
 from django.http import HttpResponseRedirect
-from .models import UploadForm, Upload, Words, UploadFormCV, UploadCV, Skills
+from .models import UploadForm, Upload, Words, UploadFormCV, UploadCV, Skills, Questions
 from django.urls import reverse
 from django.shortcuts import get_object_or_404
 from .model_creater import update_model
 from .model_scorer import score_resume
 import json
-
+from .answering import Answering
+from .model_checker import ModelChecker
 
 # show the summary of resume profile with scrapped linked in data
 def cvLinkedIn(request):
@@ -207,6 +210,7 @@ def add_skills(request):
 
 
 def add_skill(request):
+
     if request.method == "POST":
         skill = request.POST.get('skill', None)
         category = request.POST.get('category', None)
@@ -242,3 +246,48 @@ def delete_skill(request):
         return HttpResponseRedirect(reverse('skills_add'))
     else:
         return HttpResponseRedirect(reverse('skills_add'))
+
+
+
+def qa(request):
+    if request.method == "POST":
+        question_context = request.POST.get('question_context', None)
+        question = request.POST.get('question', None)
+        true_answer = request.POST.get('true_answer', None)
+        answering = Answering()
+        answer = answering.get_answer(question_context, question)
+        print("answer is: "+ answer)
+        return TemplateResponse(request, 'qa.html', {'question_context': question_context, 'question': question, 'true_answer': true_answer, 'answer': answer})
+    else:
+        question_context = request.GET.get('question_context')
+        question = request.GET.get('question')
+        true_answer = request.GET.get('true_answer')
+        return TemplateResponse(request, 'qa.html', {'question_context': question_context, 'question': question, 'true_answer': true_answer, 'answer': ""})
+
+
+def qna_train(request):
+    qalist = Answering().get_qna_list()
+    return TemplateResponse(request, 'QnATrain.html', {'qalist': json.loads(qalist)})
+
+
+def interview(request):
+    if AppVariables.q_count == 10:
+        questions = Questions.objects.all()
+        return TemplateResponse(request, 'AnswerAnalysis.html', {'questions': questions})
+    if request.method == "POST":
+        AppVariables.q_count = 1 + AppVariables.q_count
+        print("posting")
+        context = request.POST.get('question_context', None)
+        q = request.POST.get('question', None)
+        ta = request.POST.get('true_answer', None)
+        a = request.POST.get('answer', None)
+        score = ModelChecker().get_score(ta,a)
+        ques = Questions(question_context=context, question=q, true_answer=ta, answer=a, score=score*100)
+        ques.save()
+        question_context, question, true_answer = Answering().get_qna()
+        return TemplateResponse(request, 'QnAInterview.html', {'question_context': question_context, 'question': question, 'true_answer': true_answer, 'answer': ""})
+    else:
+        AppVariables.q_count = 1
+        Questions.objects.all().delete()
+        context, question, answer = Answering().get_qna()
+        return TemplateResponse(request, 'QnAInterview.html', {'question_context': context,'question': question, 'answer': "", 'true_answer': answer})

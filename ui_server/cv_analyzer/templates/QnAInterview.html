@@ -1,0 +1,33 @@
+{% extends "Dashboard.html" %}
+{% block body %}
+
+    <div class="masonry-item col-md-12" style="position: absolute; left: 50%; top: 0px;">
+        <div style="margin-left:10px;" class="bgc-white p-20 bd" ><h6 class="c-grey-900">Question and Answering</h6>
+            <div class="mT-30">
+                <form action="{% url 'interview_qa' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label for="question">Question</label>
+                            <input type="text" class="form-control" id="question" name="question" value="{{question}}">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label for="answer">Answer</label>
+                            <input type="text" class="form-control" id="answer" name="answer" value="{{answer}}">
+                        </div>
+                    </div>
+                    <input type="hidden" class="form-control" id="question_context" name="question_context" value="{{question_context}}">
+                    <input type="hidden" class="form-control" id="true_answer" name="true_answer" value="{{true_answer}}">
+                    <div class="form-row">
+                        <div class="form-group col-md-2">
+                            <button type="submit" class="btn btn-primary" style="margin-left:12px; ">Next</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

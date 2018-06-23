@@ -1,0 +1,43 @@
+{% extends "Dashboard.html" %}
+{% block body %}
+
+    <div class="masonry-item col-md-12" style="position: absolute; left: 50%; top: 0px;">
+        <div style="margin-left:10px;" class="bgc-white p-20 bd" ><h6 class="c-grey-900">Question and Answering</h6>
+            <div class="mT-30">
+                <form action="{% url 'q_a' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label for="question_context">Context</label>
+                            <input type="text" class="form-control" id="question_context" name="question_context" value="{{question_context}}">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label for="question">Question</label>
+                            <input type="text" class="form-control" id="question" name="question" value="{{question}}">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label for="true_answer">Answer</label>
+                            <input type="text" class="form-control" id="true_answer" name="true_answer" value="{{true_answer}}">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-2">
+                            <button type="submit" class="btn btn-primary" style="margin-left:12px; ">Get Answer</button>
+                        </div>
+                    </div>
+                </form>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label >Predicted Answer</label>
+                        <input type="text" class="form-control" value="{{answer}}">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'Dashboard.html' %}
+
+{% block title %}Analysis{% endblock %}
+
+{% block body %}
+    <!-- Personal Info-->
+        <div class="masonry-item col-md-12" style="position: absolute; left: 0%; top: 1032px;">
+                        <div class="bd bgc-white layer w-95 p-10" style="margin-left:10px;">
+                        </div>
+                        <div class="bgc-light-blue-300 c-white p-20">
+                            <div class="peers ai-c jc-sb gap-40">
+                                <div class="peer peer-greed"><h5>Score Board</h5></div>
+                            </div>
+                        </div>
+                        <div class="bd bgc-white" style="margin-left:10px;">
+                            <div style="margin-left:80px; margin-right:80px; margin-top:40px">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th class="bdwT-0">Context</th>
+                                            <th class="bdwT-0">Question</th>
+                                            <th class="bdwT-0">TrueAnswer</th>
+                                            <th class="bdwT-0">Answer</th>
+                                            <th class="bdwT-0">Score(%)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for item in questions %}
+                                        <tr>
+                                            <td>
+                                                <span >{{ item.question_context }}</span>
+                                            </td>
+                                            <td>
+                                                <span >{{ item.question }}</span>
+                                            </td>
+                                            <td>
+                                                <span >{{ item.true_answer }}</span>
+                                            </td>
+                                            <td>
+                                                <span >{{ item.answer }}</span>
+                                            </td>
+                                            <td>
+                                                <span class="badge bgc-red-50 c-red-700 p-10 lh-0 tt-c badge-pill">{{item.score}}</span>
+                                            </td>
+                                        <tr>
+                                    {% endfor %}
+                                    <tbody>
+                                </table>
+                            </div>
+
+                        </div>
+
+                    </div>
+    <!-- End of Personal Info-->
+
+
+{% endblock %}

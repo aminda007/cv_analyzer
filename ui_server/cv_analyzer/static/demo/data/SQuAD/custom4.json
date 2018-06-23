@@ -1,0 +1,638 @@
+{
+    "data":[{
+        "title": "title1",
+        "paragraphs": [
+
+            {
+                "context": "Java is a general-purpose computer-programming language that is concurrent, class-based, object-oriented, and specifically designed to have as few implementation dependencies as possible. OOP concepts are Inheritance, Abstraction, Polymorphism and Encapsulation. Java was originally developed by James Gosling at Sun Microsystems",
+            "qas": [{
+                "answers": [{
+                    "answer_start": 1,
+                    "text": "Java is a general-purpose computer-programming language"
+                }],
+                "question": "do you know about java?",
+                "id": "1"
+            }, {
+                "answers": [{
+                    "answer_start": 264,
+                    "text": "James Gosling at Sun Microsystems"
+                }],
+                "question": "who developed java?",
+                "id": "2"
+            },
+                {
+                "answers": [{
+                    "answer_start": 189,
+                    "text": "Inheritance,  Polymorphism and Encapsulation"
+                }],
+                "question": "tell me about OOP concepts?",
+                "id": "3"
+            },
+             {
+                "answers": [{
+                    "answer_start": 2,
+                    "text": "An object is an instance of a class"
+                }],
+                "question": "What is object in java?",
+                "id": "4"
+            },
+                   {
+                "answers": [{
+                    "answer_start": 2,
+                    "text": "it is blueprint of object"
+                }],
+                "question": "explain class in java?",
+                "id": "5"
+            }
+
+        ]
+    }]}, {"title": "title2",
+        "paragraphs": [
+            {
+                "context": "Abstraction is selecting data from a larger pool to show only the relevant details to the object. It helps to reduce programming complexity and effort. In Java, abstraction is accomplished using Abstract classes and interfaces. It is one of the most important concepts of OOPs",
+            "qas": [{
+                "answers": [{
+                    "answer_start": 1,
+                    "text": "selecting data from a larger pool"
+                }],
+                "question": "explain abstraction?",
+                "id": "6"
+            }
+        ]
+            }]},
+        {"title": "title3",
+        "paragraphs": [
+             {
+                "context": "A class which is declared “abstract” is called as an abstract class. It can have abstract methods as well as concrete methods. A normal class cannot have abstract methods. A method without a body is known as an Abstract Method. It must be declared in an abstract class. The abstract method will never be final because the abstract class must implement all the abstract methods. The main benefit of using an abstract class is that it allows you to group several related classes as siblings.",
+            "qas": [{
+                "answers": [{
+                    "answer_start": 2,
+                    "text": "A class which is declared “abstract” is called as an abstract class"
+                }],
+                "question": "describe abstract class?",
+                "id": "7"
+            },
+                {
+                "answers": [{
+                    "answer_start": 2,
+                    "text": "method without a body"
+                }],
+                "question": "What is abstract method?",
+                "id": "8"
+            },
+                {
+                "answers": [{
+                    "answer_start": 2,
+                    "text": " group several related classes as siblings"
+                }],
+                "question": "advantages of abstraction?",
+                "id": "9"
+            }
+        ]
+            }]},
+
+        {"title": "title4",
+        "paragraphs": [
+
+             {
+                "context": "Encapsulation is a principle of wrapping data (variables) and code together as a single unit. It is one of the four OOP concepts. Usually, a variable in a class are set as private as shown below. It can only be accessed with the methods defined in the class. No other class or object can access them and improve security",
+            "qas": [{
+                "answers": [{
+                    "answer_start": 2,
+                    "text": " wrapping data (variables) and code together as a single unit"
+                }],
+                "question":"What is encapsulation in java?",
+                "id": "10"
+            }, {
+                "answers": [{
+                    "answer_start": 2,
+                    "text": "It can only be accessed with the methods defined in the class"
+                }],
+                "question": "explain private variables?",
+                "id": "11"
+            },
+              {
+                "answers": [{
+                    "answer_start": 2,
+                    "text": "Improve security"
+                }],
+                "question": "advantages of encapsulation?",
+                "id": "12"
+            }
+        ]
+
+            }]},
+        {"title": "title5",
+        "paragraphs": [
+
+             {
+                "context": "If a data member is declared private, then it can only be accessed within the same class. No outside class can access data member of that class. If you need to access these variables, you have to use public getter and setter methods. Getter and Setter's methods are used to create, modify, delete and view the variables values.",
+            "qas": [{
+                "answers": [{
+                    "answer_start": 2,
+                    "text": "Getter and Setter's methods are used to create, modify, delete and view the variables values"
+                }],
+                "question": "What are the uses of getter and setter methods?",
+                "id": "13"
+            }
+        ]
+            }]},
+        {"title": "title6",
+        "paragraphs": [
+             {
+                "context": "Polymorphism refers to the ability of a variable, object or function to take on multiple forms. For example, in English, the verb “run” has a different meaning if you use it with “a laptop,” “a foot race, and ”business.  Here, we understand the meaning of “run” based on the other words used along with it. The same also applied to Polymorphism.",
+            "qas": [{
+                "answers": [{
+                    "answer_start": 28,
+                    "text": "Ability of a variable, object or function to take on multiple forms"
+                }],
+                "question": "What is polymorphism?",
+                "id": "14"
+            }
+        ]
+            }]},
+        {"title": "title7",
+        "paragraphs": [
+        {
+                "context": "Inheritance is an OOPS concept in which one object acquires the properties and behaviors of the parent object. It’s creating a parent-child relationship between two classes. It offers robust and natural mechanism for organizing and structure of any software",
+            "qas": [{
+                "answers": [{
+                    "answer_start": 2,
+                    "text": "Inheritance is an OOPS concept in which one object acquires the properties and behaviors of the parent object"
+                }],
+                "question": "What is inheritance?",
+                "id": "15"
+            }
+        ]
+            }]},
+
+        {"title": "title8",
+        "paragraphs": [
+             {
+                "context": "In this technique, all objects have their separate lifecycle. However, there is ownership such that child object can’t belong to another parent object. For example consider class/objects department and teacher. Here, a single teacher can’t belong to multiple departments, but even if we delete the department, the teacher object will never be destroyed",
+            "qas": [{
+                "answers": [{
+                    "answer_start": 2,
+                    "text": "Child object can’t belong to another parent object"
+                }],
+                "question": "What is aggregation?",
+                "id": "16"
+            }
+        ]
+            }]},
+        {"title": "title9",
+        "paragraphs": [
+             {
+                "context": "A composition is a specialized form of Aggregation. It is also called death relationship. Child objects do not have their lifecycle so when parent object deletes all child object will also delete automatically. For that, let’s take an example of House and rooms. Any house can have several rooms. One room can’t become part of two different houses. So, if you delete the house room will also be deleted.",
+            "qas": [{
+                "answers": [{
+                    "answer_start": 2,
+                    "text": "Composition is a specialized form of Aggregation"
+                }],
+                "question": "What is composition?",
+                "id": "17"
+            }
+        ]
+            }]},
+        {"title": "title10",
+        "paragraphs": [
+
+             {
+                "context": "JVM is a engine that provides runtime environment to drive the Java Code or applications. It converts Java bytecode into machines language. JVM is a part of JRE(Java Run Environment). The class loader is a subsystem used for loading class files. It performs three major functions viz. Loading, Linking, and Initialization. All the Objects, their related instance variables, and arrays are stored in the heap. This memory is common and shared across multiple threads",
+            "qas": [{
+                "answers": [{
+                    "answer_start": 2,
+                    "text": "JVM is a engine that provides runtime environment to drive the Java Code or applications. It converts Java bytecode into machines language"
+                }],
+                "question": "What is JVM?",
+                "id": "18"
+            }, {
+                "answers": [{
+                    "answer_start": 2,
+                    "text": "The class loader is a subsystem used for loading class files"
+                }],
+                "question": "What is class loader?",
+                "id": "19"
+            },
+                {
+                "answers": [{
+                    "answer_start": 2,
+                    "text": "All the Objects, their related instance variables, and arrays are stored in the heap"
+                }],
+                "question": "Describe about heap memory?",
+                "id": "20"
+            }
+        ]
+            }]},
+        {"title": "title11",
+        "paragraphs": [
+             {
+                "context": "Variables defined inside methods, constructors or blocks are called local variables. The variable will be declared and initialized within the method and it will be destroyed when the method has completed. Instance variables are variables within a class but outside any method. These variables are instantiated when the class is loaded. These are variables declared with in a class, outside any method, with the static keyword.",
+            "qas": [{
+                "answers": [{
+                    "answer_start": 2,
+                    "text": "Variables defined inside methods, constructors or blocks"
+                }],
+                "question": "What is a local variable?",
+                "id": "21"
+            }, {
+                "answers": [{
+                    "answer_start": 2,
+                    "text": "Instance variables are variables within a class but outside any method"
+                }],
+                "question": "What is instance variable?",
+                "id": "22"
+            },
+                {
+                "answers": [{
+                    "answer_start": 2,
+                    "text": "These are variables declared with in a class, outside any method, with the static keyword"
+                }],
+                "question": "What is class variable?",
+                "id": "23"
+            }
+        ]
+            }]},
+        {"title": "title12",
+        "paragraphs": [
+             {
+                "context": "Singleton class control object creation, limiting the number to one but allowing the flexibility to create more objects if the situation changes. Constructor gets invoked when a new object is created. Every class has a constructor. If we do not explicitly write a constructor for a class the java compiler builds a default constructor for that class",
+            "qas": [{
+                "answers": [{
+                    "answer_start": 2,
+                    "text": "Singleton class control object creation, limiting the number to one but allowing the flexibility to create more objects "
+                }],
+                "question": "What is a singleton class?",
+                "id": "24"
+            }, {
+                "answers": [{
+                    "answer_start": 2,
+                    "text": "Constructor gets invoked when a new object is created"
+                }],
+                "question": "What do you mean by constructor",
+                "id": "25"
+            }
+        ]
+            }]},
+        {"title": "title13",
+        "paragraphs": [
+        {
+                "context": "Class variables also known as static variables are declared with the static keyword in a class, but outside a method, constructor or a block.Java provides access modifiers to set access levels for classes, variables, methods and constructors. A member has package or default accessibility when no accessibility modifier is specified. Variables, methods and constructors which are declared protected in a superclass can be accessed only by the subclasses in other package or any class within the package of the protected members' class.Final classes are created so the methods implemented by that class cannot be overridden. It can’t be inherited",
+            "qas": [{
+                "answers": [{
+                    "answer_start": 2,
+                    "text": "Static variables are declared with the static keyword in a class, but outside a method, constructor or a block"
+                }],
+                "question": "What is static variable?",
+                "id": "26"
+            }, {
+                "answers": [{
+                    "answer_start": 2,
+                    "text": "Variables, methods and constructors which are declared protected in a superclass"
+                }],
+                "question": "What is protected access modifier?",
+                "id": "27"
+            },
+                 {
+                "answers": [{
+                    "answer_start": 2,
+                    "text": "It’s can’t be inherited"
+                }],
+                "question": "What is final class?",
+                "id": "28"
+            }
+
+        ]
+            }]},
+        {"title": "title14",
+        "paragraphs": [
+             {
+                "context": "An exception is a problem that arises during the execution of a program. Exceptions are caught by handlers positioned along the thread's method invocation stack. It is an exception that occurs that probably could have been avoided by the programmer. As opposed to checked exceptions, runtime exceptions are ignored at the time of compilation",
+            "qas": [{
+                "answers": [{
+                    "answer_start": 2,
+                    "text": "An exception is a problem that arises during the execution of a program"
+                }],
+                "question": "What is an exception?",
+                "id": "29"
+            }, {
+                "answers": [{
+                    "answer_start": 2,
+                    "text": "An exception that occurs that probably could have been avoided by the programmer"
+                }],
+                "question": "Explain runtime exception?",
+                "id": "30"
+            }
+        ]
+            }]},
+
+        {
+            "title":"title15_Quality Assurance",
+            "paragraphs" :[
+                 {
+                "context": "QA refers to the planned and systematic way of monitoring the quality of process which is followed to produce a quality product. QA tracks the outcomes and adjusts the process to meet the expectation. QC Concern with the quality of the product. QC finds the defects and suggests improvements. The process set by QA is implemented by QC. The QC is the responsibility of the tester. Software Testing is the process of ensuring that product which is developed by the developer meets the user requirement. The motive to perform testing is to find the bugs and make sure that they get fixed",
+            "qas": [{
+                "answers": [{
+                    "answer_start": 2,
+                    "text": "QA refers to the planned and systematic way of monitoring the quality of process which is followed to produce a quality product."
+                }],
+                "question": "What is quality assurance?",
+                "id": "31"
+            }, {
+                "answers": [{
+                    "answer_start": 2,
+                    "text": "QC Concern with the quality of the product. QC finds the defects and suggests improvements. The process set by QA is implemented by QC"
+                }],
+                "question": "What is quality controlling?",
+                "id": "32"
+            },
+                {
+                "answers": [{
+                    "answer_start": 2,
+                    "text": "Software Testing is the process of ensuring that product which is developed by the developer meets the user requirement"
+                }],
+                "question": "What is software testing?",
+                "id": "33"
+            }
+        ]
+            }]},
+                {
+        "title": "title16",
+        "paragraphs": [
+
+                 {
+                "context": "A test plan is a test life cycle document which analyses the resource, scope, approach and schedule of several testing activities. It will help you to find items that need to be tested, its features that need further testing, the risks that come with some and the solutions as well. It consists of history, contents, introduction, scope, overview and approach. ",
+            "qas": [{
+                "answers": [{
+                    "answer_start": 2,
+                    "text": "A test life cycle document document which analyses the resource, scope, approach and schedule of several testing activities"
+                }],
+                "question": "What is test plan?",
+                "id": "34"
+            }
+        ]
+            }]},
+        {
+        "title": "title17",
+        "paragraphs": [
+
+        {
+                "context": "A test case is again a document which gives you a step by step detailed idea on how you can test an application. It usually comprises of results (pass or fail), remarks, steps, outputs, and description. A use case on the other is a document of another kind. It helps you understand the actions of the user and the response of the system found in a particular functionality. It comprises of the cover page, revision, contents, exceptions, and pre and post conditions",
+            "qas": [{
+                "answers": [{
+                    "answer_start": 2,
+                    "text": "A document which gives you a step by step detailed idea on how you can test an application"
+                }],
+                "question": "What is test case?",
+                "id": "35"
+            }, {
+                "answers": [{
+                    "answer_start": 2,
+                    "text": "It helps you understand the actions of the user and the response of the system found in a particular functionality"
+                }],
+                "question": "What is use case?",
+                "id": "36"
+            }
+        ]
+            }]},
+        {
+        "title": "title18",
+        "paragraphs": [
+
+                 {
+                "context": "Test strategy helps you understand the process of testing in every software development cycle. It has been made in such a way that all project managers and developers will be informed about some of the most important issues of testing.It will include the following information",
+            "qas": [{
+                "answers": [{
+                    "answer_start": 2,
+                    "text": "Test strategy helps you understand the process of testing in every software development cycle"
+                }],
+                "question": "What is test strategy?",
+                "id": "37"
+            }
+        ]
+            }]},
+        {
+        "title": "title19",
+        "paragraphs": [
+
+                 {
+                "context":"Bug release is when software or an application is handed over to the testing team knowing that the defect is present in a release.  During this the priority and severity of bug is low, as bug can be removed before the final handover. Bug leakage is something, when the bug is discovered by the end users or customer, and not detected by the testing team while testing the software.",
+
+            "qas": [{
+                "answers": [{
+                    "answer_start": 2,
+                    "text": "Bug release is when software or an application is handed over to the testing team knowing that the defect is present in a release"
+                }],
+                "question": "What is bug leakage and bug release",
+                "id": "38"
+            }
+        ]
+            }]},
+        {
+        "title": "title20",
+        "paragraphs": [
+
+                 {
+                "context": "The test strategy includes an introduction, resource, scope and schedule for test activities, test tools, test priorities, test planning and the types of test that has to be performed.",
+            "qas": [{
+                "answers": [{
+                    "answer_start": 2,
+                    "text": "Introduction, resource, scope and schedule for test activities, test tools, test  priorities, test planning and the types"
+                }],
+                "question": "What does the test strategy include?",
+                "id": "39"
+            }
+        ]
+            }]},
+        {
+        "title": "title21",
+        "paragraphs": [
+
+                {
+                "context": "The testing of all the branches of the code, which is tested once, is known as branch testing.  While the testing, which is focused on the limit conditions of the software is known as boundary testing",
+            "qas": [{
+                "answers": [{
+                    "answer_start": 2,
+                    "text": "The testing of all the branches of the code"
+                }],
+                "question": "What is branch testing?",
+                "id": "40"
+            }, {
+                "answers": [{
+                    "answer_start": 2,
+                    "text": " Limit conditions of the software is known as boundary testing"
+                }],
+                "question": "What is boundary testing?",
+                "id": "41"
+            }
+        ]
+            }]},
+
+        {
+        "title": "title22",
+        "paragraphs": [
+
+                 {
+                "context": "Test case is a specific condition to check against the Application Under Test.  It has information of test steps, prerequisites, test environment, and outputs.",
+            "qas": [{
+                "answers": [{
+                    "answer_start": 2,
+                    "text": "Information of test steps, prerequisites, test environment, and outputs"
+                }],
+                "question": "What is test case?",
+                "id": "42"
+            }
+        ]
+            }]},
+        {
+        "title": "title23",
+        "paragraphs": [
+
+                 {
+                "context": " Testing an application under heavy but expected load is known as Load Testing.  Here, the    load refers to the large volume of users, messages, requests, data, etc. When the load placed on the system is raised or accelerated beyond the normal range then it is known as Stress Testing. The process of checking the system, whether the system can handle the required amounts of data, user requests, etc. is known as Volume Testing.",
+            "qas": [{
+                "answers": [{
+                    "answer_start": 2,
+                    "text": "Testing an application under heavy but expected load is known as Load Testing"
+                }],
+                "question": "What is load testing?",
+                "id": "43"
+            }, {
+                "answers": [{
+                    "answer_start": 2,
+                    "text": "System is raised or accelerated beyond the normal range then it is known as Stress Testing"
+                }],
+                "question": "What is stress testing?",
+                "id": "44"
+            },
+                 {
+                "answers": [{
+                    "answer_start": 2,
+                    "text": "System can handle the required amounts of data, user requests, etc."
+                }],
+                "question": "What is volume testing?",
+                "id": "45"
+            }
+
+        ]
+            }]},
+        {
+        "title": "title24",
+        "paragraphs": [
+
+                 {
+                "context": "Manual testing means you are testing a software manually without using any automated tools or any script. In this type of testing, the tester takes over the role of an end-user and tests the software to identify bugs or any unexpected behavior. In Automation testing, the tester writes the scripts and uses software tools to test the product. This process involves the automation of a manual process",
+            "qas": [{
+                "answers": [{
+                    "answer_start": 2,
+                    "text": "Testing a software manually"
+                }],
+                "question": "What is manual testing?",
+                "id": "46"
+            }, {
+                "answers": [{
+                    "answer_start": 2,
+                    "text": "Tester writes the scripts and uses software tools to test the product"
+                }],
+                "question": "What is automation testing?",
+                "id": "47"
+            }
+        ]
+            }]},
+        {
+        "title": "title25",
+        "paragraphs": [
+
+               {
+                "context": "Software Development Life Cycle determines the series of steps to be performed to develop an application or the efficiency of a software. In this chapter, we will discuss the phases defined in SDLC. Each phase has its own process and deliverables that goes into the next phase.",
+            "qas": [{
+                "answers": [{
+                    "answer_start": 2,
+                    "text": "The series of steps to be performed to develop an application or the efficiency of a software"
+                }],
+                "question": "What is SDLC?",
+                "id": "48"
+            }, {
+                "answers": [{
+                    "answer_start": 2,
+                    "text": "STLC is used to improve the quality of a software product and to make it capable to meet the business requirements"
+                }],
+                "question": "What are the uses of STLC?",
+                "id": "49"
+            }
+        ]
+            }]},
+        {
+        "title": "title26",
+        "paragraphs": [
+
+                {
+                "context": "System Testing involves the integration of elements of a SAP system to ensure that related SAP functionality are linked together in the development environment",
+            "qas": [{
+                "answers": [{
+                    "answer_start": 2,
+                    "text": "System Testing involves the integration of elements of a SAP system"
+                }],
+                "question": "What is system testing?",
+                "id": "50"
+            }
+        ]
+            }]},
+        {
+        "title": "title27",
+        "paragraphs": [
+
+                 {
+                "context": "SAP UAT is used to ensure that the end-users are able to perform the assigned job functions with the new system. The important aspect of this testing is to understand the business requirement and to ensure that the expected features, functions and capabilities are available.",
+            "qas": [{
+                "answers": [{
+                    "answer_start": 2,
+                    "text": "understand the business requirement and to ensure that the expected features, functions and capabilities are available"
+                }],
+                "question": "What is user acceptance testing?",
+                "id": "51"
+            }
+        ]
+            }]},
+        {
+        "title": "title28",
+        "paragraphs": [
+
+                 {
+                "context": "Regression testing is used to find new functionalities and to test previous functionalities in a system when it is upgraded or a new system is set up. The key role of regression testing is to test the existing functionality and newly updated configuration and codebase. Test system setup involves setting up the test environment to run the test-cases. Here, the tester needs to define key metrics for reporting.",
+            "qas": [{
+                "answers": [{
+                    "answer_start": 2,
+                    "text": "Regression testing is used to find new functionalities and to test previous functionalities"
+                }],
+                "question": "What is regression testing?",
+                "id": "52"
+            }, {
+                "answers": [{
+                    "answer_start": 2,
+                    "text": "setting up the test environment to run the test-cases"
+                }],
+                "question": "What is test system setup?",
+                "id": "53"
+            }
+        ]
+            }]}
+
+
+
+
+
+
+
+
+
+
+
+
+            ]
+        }
+
+
+
+
+

@@ -67,3 +67,10 @@ class Skills(models.Model):
 
     def __str__(self):
         return self.category + ' ' + str(self.count)
+
+class Questions(models.Model):
+    question_context = models.CharField(max_length=1000)
+    question = models.CharField(max_length=120)
+    true_answer = models.CharField(max_length=100)
+    answer = models.CharField(max_length=100)
+    score = models.IntegerField()
