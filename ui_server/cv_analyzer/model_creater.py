@@ -16,7 +16,6 @@ from nltk.stem import WordNetLemmatizer
 from bs4 import BeautifulSoup
 import re
 from .models import Words
-from .export_data import write_word_count
 
 
 def update_model(fp):
@@ -138,12 +137,3 @@ def save_model(word_list):
         else:
             w = Words(word=item, count=1)
             w.save()
-    ordered_word_list = Words.objects.order_by('-count')
-
-    total_word_count = 0
-    for i in ordered_word_list:
-        w_existing_count = i.count
-        total_word_count = total_word_count + w_existing_count*w_existing_count
-        print(i)
-
-    write_word_count(total_word_count)

@@ -176,7 +176,7 @@ def delete_all_cv(request):
 
 
 def analysis(request):
-    resumes = UploadCV.objects.order_by('-score')
+    resumes = UploadCV.objects.order_by('-score_total')
     return TemplateResponse(request, 'Analysis.html', {'resumes': resumes})
 
 

@@ -116,6 +116,8 @@ def score_resume(fp):
                                 if gpa_found and not bool(re.search('[a-zA-Z]', word)) and len(word) > 2:
                                     gpa = word
                                     gpa_found = False
+    if gpa == '':
+        gpa = 2.0
     print('gpa is ' + gpa)
 
     score = 0
@@ -131,15 +133,6 @@ def score_resume(fp):
     resume_text = ''
     for item in filtered_words:
         resume_text = resume_text + item + ' '
-        obj_list = Words.objects.filter(word=item)
-        if len(obj_list) > 0:
-            w_model = obj_list[0]
-            w_model_count = w_model.count
-            score = w_model_count + score
 
     checker = ModelChecker()
-
-    if gpa == '':
-        gpa = 2.0
-
     return linked_in_url, checker.get_score(model_text, resume_text), float(gpa)

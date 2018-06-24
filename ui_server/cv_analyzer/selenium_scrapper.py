@@ -14,11 +14,15 @@ from .scoring_template import write_total_score
 
 def scrape_linkedin(pro_url):
 
-    chrome_options = Options()
+    # for Windows
+    # chrome_options = Options()
     # chrome_options.add_argument("--headless")
+    # driver = webdriver.Chrome(executable_path='chromedriver', chrome_options=chrome_options)
 
-    driver = webdriver.Chrome(executable_path='chromedriver', chrome_options=chrome_options)
-
+    # for ubuntu
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.add_argument('--no-sandbox')
+    driver = webdriver.Chrome('/usr/bin/chromedriver', chrome_options=chrome_options)
     usrName = 'redleafpro@gmail.com'
     pssWrd = "asasas12"
 
