@@ -6,7 +6,6 @@ from django.template.response import TemplateResponse
 
 from .app_variables import AppVariables
 from .import_data import *
-from .init import get_linkedin_profile
 from .selenium_scrapper import scrape_linkedin
 from django.http import HttpResponseRedirect
 from .models import UploadForm, Upload, Words, UploadFormCV, UploadCV, Skills, Questions
