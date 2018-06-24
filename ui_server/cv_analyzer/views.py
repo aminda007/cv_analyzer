@@ -283,10 +283,12 @@ def interview(request):
         print("posting")
         context = request.POST.get('question_context', None)
         q = request.POST.get('question', None)
-        ta = request.POST.get('true_answer', None)
+        # ta = request.POST.get('true_answer', None)
         a = request.POST.get('answer', None)
-        score = ModelChecker().get_score(ta,a)
-        ques = Questions(question_context=context, question=q, true_answer=ta, answer=a, score=score*100)
+        answering = Answering()
+        predicted_answer = answering.get_answer(context, q)
+        score = ModelChecker().get_score(predicted_answer, a)
+        ques = Questions(question_context=context, question=q, true_answer=predicted_answer, answer=a, score=score*100)
         ques.save()
         if AppVariables.q_count == 5:
             AppVariables.q_count = 0
@@ -296,11 +298,6 @@ def interview(request):
         else:
             question_context, question, true_answer = Answering().get_qna()
             return TemplateResponse(request, 'QnAInterview.html', {'question_context': question_context, 'question': question, 'true_answer': true_answer, 'answer': ""})
-    else:
-        AppVariables.q_count = 1
-        Questions.objects.all().delete()
-        context, question, answer = Answering().get_qna()
-        return TemplateResponse(request, 'QnAInterview.html', {'question_context': context,'question': question, 'answer': "", 'true_answer': answer})
 
 
 def select_category(request):
