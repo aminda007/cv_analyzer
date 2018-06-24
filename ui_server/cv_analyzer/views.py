@@ -291,3 +291,16 @@ def interview(request):
         Questions.objects.all().delete()
         context, question, answer = Answering().get_qna()
         return TemplateResponse(request, 'QnAInterview.html', {'question_context': context,'question': question, 'answer': "", 'true_answer': answer})
+
+
+def select_category(request):
+    return TemplateResponse(request, 'QnACategory.html', None)
+
+
+def save_category(request):
+    if request.method == "POST":
+        category = request.POST.get('category', None)
+        AppVariables.q_count = 0
+        AppVariables.qna_category = category
+        question_context, question, true_answer = Answering().get_qna()
+        return TemplateResponse(request, 'QnAInterview.html', {'question_context': question_context, 'question': question, 'true_answer': true_answer, 'answer': ""})

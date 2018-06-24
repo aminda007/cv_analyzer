@@ -1,5 +1,4 @@
 import json
-
 from .qa_model.keras_question_and_answering_system.library.seq2seq import Seq2SeqQA
 from .qa_model.keras_question_and_answering_system.library.utility.squad import SquADDataSet
 from .app_variables import AppVariables
@@ -23,75 +22,60 @@ class Answering:
 
     @staticmethod
     def get_qna_list():
-
-        print('inside get_qna_list')
-        data_set = SquADDataSet(data_path=None)
-        data_set.load_model(data_path='cv_analyzer/static/demo/data/SQuAD/custom4.json')
+        with open('cv_analyzer/static/demo/data/SQuAD/custom4.json') as json_data:
+            file = json.load(json_data)
         qa_list = []
-
-        for qa_item in data_set.to_tree():
+        for qa_item in file['data']:
+            paragraphs = qa_item['paragraphs']
+            paragraph = paragraphs[0]
+            context = paragraph['context']
+            qas = paragraph['qas']
             data = []
-            context = qa_item[0]
-            print('qa title')
-            print(context)
             item_array = []
-            for question in qa_item[1]:
+            for question in qas:
                 question_array = []
-                print('qa question')
-                print(question[0])
-                question_array.append(question[0])
-                print('qa answer')
-                print(question[1])
-                question_array.append(question[1])
+                answers = question['answers']
+                answer = answers[0]
+                ques = question['question']
+                question_array.append(ques)
+                question_array.append(answer['text'])
                 item_array.append(question_array)
-            # item_array.append(answer_array)
             data.append(context)
             data.append(item_array)
             qa_list.append(data)
-            print(len(qa_list))
-            print('qa 1 st item')
-            print(qa_list[0])
-        return json.dumps(qa_list[0:5])
+        return json.dumps(qa_list)
 
     @staticmethod
     def get_random_qna():
-
-        print('inside get_qna_list')
-        data_set = SquADDataSet(data_path=None)
-        data_set.load_model(data_path='cv_analyzer/static/demo/data/SQuAD/custom4.json')
+        with open('cv_analyzer/static/demo/data/SQuAD/custom4.json') as json_data:
+            file = json.load(json_data)
         qa_list = []
-
-        for qa_item in data_set.to_tree():
-            data = []
-            context = qa_item[0]
-            print('qa title')
-            print(context)
-            item_array = []
-            for question in qa_item[1]:
-                question_array = []
-                print('qa question')
-                print(question[0])
-                question_array.append(question[0])
-                print('qa answer')
-                print(question[1])
-                question_array.append(question[1])
-                item_array.append(question_array)
-            # item_array.append(answer_array)
-            data.append(context)
-            data.append(item_array)
-            qa_list.append(data)
-            print(len(qa_list))
-            print('qa 1 st item')
-            print(qa_list[0])
+        for qa_item in file['data']:
+            title = qa_item['title']
+            if title == AppVariables.qna_category:
+                paragraphs = qa_item['paragraphs']
+                paragraph = paragraphs[0]
+                context = paragraph['context']
+                qas = paragraph['qas']
+                data = []
+                item_array = []
+                for question in qas:
+                    question_array = []
+                    answers = question['answers']
+                    answer = answers[0]
+                    ques = question['question']
+                    question_array.append(ques)
+                    question_array.append(answer['text'])
+                    item_array.append(question_array)
+                data.append(context)
+                data.append(item_array)
+                qa_list.append(data)
         return qa_list[randint(0, len(qa_list)-1)]
 
     def get_qna(self):
         try:
             q = self.get_random_qna()
-            print("555555555555555555")
-            print(q)
             context = q[0]
-            print(context)
             question_array = q[1]
             first_item = question_array[0]
             question = first_item[0]

@@ -7,3 +7,4 @@ class AppVariables:
     seq2seq = None
     data_set = SquADDataSet(data_path=None)
     q_count = 0
+    qna_category = 'Software Engineer'

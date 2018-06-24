@@ -37,6 +37,8 @@ urlpatterns = [
     path(r'delete-all', views.delete_all),
     path(r'delete-all-cv', views.delete_all_cv),
     path(r'analysis', views.analysis),
+    path(r'category', views.select_category),
+    path(r'select-category', views.save_category, name='select_category'),
     path(r'qa', views.qa, name='q_a'),
     path(r'interview', views.interview, name='interview_qa'),
     path(r'qa-train', views.qna_train),
