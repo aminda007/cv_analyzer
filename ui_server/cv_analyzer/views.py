@@ -3,7 +3,7 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.template.response import TemplateResponse
-
+from .linked_in_scrapper import LinkedInScrapper
 from .app_variables import AppVariables
 from .import_data import *
 from .selenium_scrapper import scrape_linkedin
@@ -121,7 +121,7 @@ def upload_file_cv(request):
             else:
                 pro_url = 'https://www.linkedin.com/in/' + pro_url_splitted[-2]
             print("linked in url refactored is - " + pro_url)
-            get_linkedin_profile(pro_url)
+            LinkedInScrapper().scrape_one_profile(pro_url)
             if scrape_linkedin(pro_url):
                 print('DATA COLLECTION IS OVER !!!!!!!!!!!!!!!!!!!!!!!!')
                 obj = resume.save(commit=False)

@@ -4,7 +4,7 @@ import json
 from .extractor import Extractor
 
 
-class Linked_in_scraper:
+class LinkedInScrapper:
 
     def scrape_profile_div(self, user_profile_url):
 
@@ -52,5 +52,3 @@ class Linked_in_scraper:
     def scrape_one_profile(self, profile_url):
         return self.scrape_profile_div(profile_url)
 
-    def __init__(self, profile_name):
-        self.profile_name = profile_name
