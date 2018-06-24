@@ -268,12 +268,16 @@ def qna_train(request):
     qalist = Answering().get_qna_list()
     return TemplateResponse(request, 'QnATrain.html', {'qalist': json.loads(qalist)})
 
+def get_ttl_score():
+    total = 0
+    questions = Questions.objects.all()
+    for i in questions:
+        total = total + i.score
+    return total/len(questions)
+
 
 def interview(request):
-    if AppVariables.q_count == 10:
-        AppVariables.q_count = 0
-        questions = Questions.objects.all()
-        return TemplateResponse(request, 'AnswerAnalysis.html', {'questions': questions})
+
     if request.method == "POST":
         AppVariables.q_count = 1 + AppVariables.q_count
         print("posting")
@@ -284,8 +288,14 @@ def interview(request):
         score = ModelChecker().get_score(ta,a)
         ques = Questions(question_context=context, question=q, true_answer=ta, answer=a, score=score*100)
         ques.save()
-        question_context, question, true_answer = Answering().get_qna()
-        return TemplateResponse(request, 'QnAInterview.html', {'question_context': question_context, 'question': question, 'true_answer': true_answer, 'answer': ""})
+        if AppVariables.q_count == 5:
+            AppVariables.q_count = 0
+            questions = Questions.objects.all()
+            score_total = get_ttl_score()
+            return TemplateResponse(request, 'AnswerAnalysis.html',{'questions': questions, 'score_total': score_total})
+        else:
+            question_context, question, true_answer = Answering().get_qna()
+            return TemplateResponse(request, 'QnAInterview.html', {'question_context': question_context, 'question': question, 'true_answer': true_answer, 'answer': ""})
     else:
         AppVariables.q_count = 1
         Questions.objects.all().delete()
@@ -294,6 +304,8 @@ def interview(request):
 
 
 def select_category(request):
+    Questions.objects.all().delete()
+    AppVariables.q_count = 0
     return TemplateResponse(request, 'QnACategory.html', None)
 
 
