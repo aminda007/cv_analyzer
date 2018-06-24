@@ -271,6 +271,7 @@ def qna_train(request):
 
 def interview(request):
     if AppVariables.q_count == 10:
+        AppVariables.q_count = 0
         questions = Questions.objects.all()
         return TemplateResponse(request, 'AnswerAnalysis.html', {'questions': questions})
     if request.method == "POST":
