@@ -55,7 +55,7 @@ def write_total_score(lists):
         if len(skills) > 0:
             item_count = lists.count(item)
             skill = skills[0]
-            # skill_priority = skill.priority
+            skill_priority = skill.priority
             skill_category = skill.category
             if skill_category == 'Front-end':
                 # score_front_end = score_front_end + similarity(item_count, total_words, skill_category, skill_priority)
