@@ -99,13 +99,13 @@ def get_edu_score():
     edu = importPersonalDataLinkedIn()[5].strip().lower()
     print(edu)
     if edu in "doctor":
-        edu_score = 10
+        edu_score = 0.4
     elif edu in "master":
-        edu_score = 8
+        edu_score = 0.3
     elif edu in "bachelor":
-        edu_score = 6
+        edu_score = 0.2
     else:
-        edu_score = 2
+        edu_score = 0.1
     return edu_score
 
 
@@ -185,7 +185,7 @@ def get_total_score(score, gpa, edu_score):
     endoresement_score = int(import_endoresed_data()[0])/100*10
     section_score = int(importScoreDataLinkedIn()[5])/100*30
     gpa_score = gpa/4.2*10
-    edu_score = min(edu_score, 35)/35*10
+    edu_score = min(edu_score, 1)*10
     print('model score is ' + str(model_score))
     print('endorsement score is ' + str(endoresement_score))
     print('section score is ' + str(section_score))

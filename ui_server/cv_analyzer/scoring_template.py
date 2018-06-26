@@ -5,15 +5,15 @@ from .models import Skills
 # return a score according to the given priority
 def get_score(skill_priority):
     if skill_priority == 'High':
-        return 30
+        return 0.35
     elif skill_priority == 'Very High':
-        return 25
+        return 0.3
     elif skill_priority == 'Medium':
-        return 20
+        return 0.2
     elif skill_priority == 'Very Low':
-        return 15
+        return 0.1
     else:
-        return 10
+        return 0.5
 
 
 # get the total scores from given skills for model for each section
