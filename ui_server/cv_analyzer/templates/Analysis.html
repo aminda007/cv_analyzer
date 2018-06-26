@@ -26,7 +26,7 @@
                                     {% for item in resumes %}
                                         <tr>
                                             <td>
-                                                {{forloop.counter}}.<a href="{{ item.resume_do.url }}">{{ item.resume_do.name }}</a>
+                                                {{forloop.counter}}.<a href="{{ item.resume_do.url }}">{{ item.name }}</a>
                                             </td>
                                             <td>
                                                 <span class="badge bgc-red-50 c-red-700 p-10 lh-0 tt-c badge-pill">{{item.score_total}}</span>
